@@ -31,12 +31,16 @@ Utilize these specific GitHub Copilot agent mode tools for comprehensive analysi
 
 **Core Analysis Tools**:
 
-- ✅ **`changes`**: Analyze all file diffs and modifications in the PR
-- ✅ **`codebase`**: Search relevant file chunks and symbols for context
-- ✅ **`usages`**: Find references and usages of modified symbols/functions
-- ✅ **`search`**: Search workspace for related patterns and implementations
-- ✅ **`findTestFiles`**: Locate corresponding test files for modified code
-- ✅ **`problems`**: Check for syntax errors and code issues
+- ✅ **`Git Changes`**: Get diffs of changed files in the PR
+- ✅ **`Codebase`**: Reference relevant file chunks, symbols, and other information in your code
+- ✅ **`Find Usages`**: Find references, definitions, and other usages of modified symbols/functions
+- ✅ **`Search View Results`**: Search workspace for related patterns and implementations
+- ✅ **`Find Test Files`**: For source code files, find the files that contain the tests
+- ✅ **`Get Problems`**: Check errors for particular files
+
+**Additional Available Tools**:
+- ✅ **`Test Failure`**: Includes information about the last unit test failure
+- ✅ **`Search GitHub Repository`**: Search GitHub repository for relevant source code snippets
 
 ---
 
@@ -44,41 +48,42 @@ Utilize these specific GitHub Copilot agent mode tools for comprehensive analysi
 
 **1. Requirement Alignment Analysis**:
 
-- Use **`changes`** and **`codebase`** to verify all acceptance criteria are met
+- Use **`Git Changes`** and **`Codebase`** to verify all acceptance criteria are met
 - Cross-reference story requirements with actual code changes
 - Identify missing functionality or incomplete implementations
 
 **2. Code Quality Assessment**:
 
-- Use **`usages`** to analyze impact of modified functions/classes
-- Use **`search`** to find similar patterns and ensure consistency
-- Use **`problems`** to identify syntax errors, warnings, or issues
+- Use **`Find Usages`** to analyze impact of modified functions/classes
+- Use **`Search View Results`** to find similar patterns and ensure consistency
+- Use **`Get Problems`** to identify syntax errors, warnings, or issues
 - Check for code smells, anti-patterns, and maintainability concerns
 
 **3. Security Risk Analysis**:
 
-- Use **`codebase`** to search for potential security vulnerabilities
+- Use **`Codebase`** to search for potential security vulnerabilities
 - Check for SQL injection, XSS, authentication bypass risks, or any critical risks identified
 - Validate input sanitization and output encoding
 - Review access control and authorization logic
 
 **4. Performance Risk Assessment**:
 
-- Use **`usages`** to identify performance-critical code paths
+- Use **`Find Usages`** to identify performance-critical code paths
 - Check for N+1 queries, inefficient algorithms, memory leaks
 - Analyze database query patterns and caching strategies
 - Review resource usage and scalability implications
 
 **5. Integration Impact Analysis**:
 
-- Use **`search`** and **`usages`** to find all dependent code
+- Use **`Search View Results`** and **`Find Usages`** to find all dependent code
 - Identify breaking changes to APIs or data contracts
 - Check integration points with external services
 - Validate backward compatibility requirements
 
 **6. Test Coverage Validation**:
 
-- Use **`findTestFiles`** to locate relevant test files
+- Use **`Find Test Files`** to locate relevant test files for modified code
+- Use **`Test Failure`** to check for any existing test issues
 - Verify new functionality has corresponding tests
 - Identify missing edge cases and negative scenarios
 
@@ -116,18 +121,24 @@ Ensure your review is:
 
 ---
 
-### **🔹 Context Engineering Instructions:**
+### **🔹 Agent Mode Workflow:**
 
-**Agent Mode Workflow**:
+**Recommended Execution Sequence**:
 
-1. **Discovery Phase**: Use `changes` and `codebase` to understand scope
-2. **Analysis Phase**: Use `usages`, `search`, and `findTestFiles` for deep analysis
-3. **Validation Phase**: Use `runTests`, `runCommands`, and `problems` for verification
-4. **Documentation Phase**: Compile comprehensive findings with tool evidence
+1. **Discovery Phase**: 
+   - Use `Git Changes` to identify all modified files and understand the scope of changes
+   - Use `Codebase` to understand broader context and architecture
 
-**Agent Mode Workflow**:
+2. **Analysis Phase**: 
+   - Use `Find Usages` and `Search View Results` to find impact on related code
+   - Use `Find Test Files` for test coverage analysis
+   - Focus analysis on files identified in Discovery Phase
 
-1. **Discovery Phase**: Use `changes` and `codebase` to understand scope
-2. **Analysis Phase**: Use `usages`, `search`, and `findTestFiles` for deep analysis
-3. **Validation Phase**: Use `problems` to identify immediate issues
-4. **Documentation Phase**: Compile comprehensive findings with tool evidence
+3. **Validation Phase**: 
+   - Use `Get Problems` to identify immediate issues in changed files
+   - Use `Test Failure` to check for any existing test issues
+   - Validate that analysis covers all modified areas
+
+4. **Documentation Phase**: 
+   - Compile comprehensive findings with tool evidence
+   - Categorize issues by priority and provide actionable recommendations
