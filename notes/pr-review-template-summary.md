@@ -103,35 +103,3 @@ Collect the following information to fill the template:
 ## 📊 **What to Expect in the Output**
 
 The AI will generate a comprehensive analysis and **create a review file in your project's root directory**. This file will contain detailed findings, specific file references, and actionable recommendations categorized by priority.
-
----
-
-## ⚠️ **Important Notes & Limitations**
-
-### **What This Template Does Well**
-- ✅ Identifies security vulnerabilities
-- ✅ Maps code dependencies and impact
-- ✅ Validates test coverage comprehensively
-- ✅ Finds performance bottlenecks
-- ✅ Ensures acceptance criteria are met
-- ✅ Provides specific, actionable feedback
-
-### **What This Template Cannot Do**
-- ❌ Replace human judgment on business logic
-- ❌ Understand complex domain-specific requirements
-- ❌ Make architectural decisions
-- ❌ Test the actual functionality (only analyzes code)
-- ❌ Access external systems or databases
-
-### **Best Use Cases**
-- **Complex PRs** with multiple file changes
-- **Security-critical features** requiring thorough analysis
-- **Integration changes** affecting multiple services
-- **Large teams** where consistency is important
-- **Junior developer PRs** needing comprehensive guidance
-
-### **When NOT to Use**
-- **Simple, single-file changes** (overkill)
-- **Emergency hotfixes** (too time-consuming)
-- **Experimental/prototype code** (analysis may not be relevant)
-- **Documentation-only changes** (limited value)
