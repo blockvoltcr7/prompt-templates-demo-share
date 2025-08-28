@@ -1,4 +1,4 @@
-## 🎯 Purpose
+## 🎯 Task
 
 Generate a comprehensive GitHub Copilot instruction system that includes multiple specialized files for maximum organizational value and SDLC coverage.
 
