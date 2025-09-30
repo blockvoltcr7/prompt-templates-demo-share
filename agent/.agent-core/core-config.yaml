@@ -1,0 +1,4 @@
+markdownExploder: true
+qa:
+  qaLocation: docs/qa
+
