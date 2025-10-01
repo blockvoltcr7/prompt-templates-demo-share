@@ -1,5 +1,5 @@
 ---
-description: Analyze a JIRA story or requirement to extract testable acceptance criteria and identify test coverage gaps.
+description: Analyze a JIRA story or ticket to extract testable requirements and identify test scenarios.
 ---
 
 The user input to you can be provided directly by the agent or as a command argument - you **MUST** consider it before proceeding with the prompt (if not empty).
@@ -8,88 +8,222 @@ User input:
 
 $ARGUMENTS
 
-Goal: Analyze the provided user story, feature requirement, or JIRA ticket to understand what needs to be tested, extract acceptance criteria, identify edge cases, and prepare for comprehensive test coverage.
+You are analyzing a development story/ticket to extract testable requirements and identify comprehensive test scenarios. This is the FIRST step in the QA test automation workflow.
 
-This is the **FIRST** step in the QA/SDET workflow. All subsequent commands depend on a complete story analysis.
+## Execution Flow (main)
 
-Execution steps:
+```
+1. Load story details from Input
+   → If JIRA key provided: Fetch from JIRA API (if configured)
+   → If text provided: Parse directly
+   → If empty: ERROR "No story provided"
+2. Extract key information:
+   → Story title, description, acceptance criteria
+   → User personas/roles involved
+   → Preconditions and postconditions
+   → Data requirements
+   → Business rules and validations
+3. Identify testable scenarios:
+   → Positive flow scenarios (happy path)
+   → Negative flow scenarios (error cases)
+   → Edge cases and boundary conditions
+   → Data validation scenarios
+   → Integration points with other systems
+4. Classify test types needed:
+   → UI tests (if frontend changes)
+   → API tests (if backend changes)
+   → Integration tests (if system interactions)
+   → Performance tests (if load concerns)
+   → Security tests (if auth/data sensitivity)
+5. Extract non-functional requirements:
+   → Performance expectations
+   → Security/compliance needs
+   → Accessibility requirements
+   → Browser/device compatibility
+6. Identify dependencies and risks:
+   → External system dependencies
+   → Test data requirements
+   → Environment prerequisites
+   → Potential blockers
+7. Generate story analysis document
+   → Store in specs/[STORY-KEY]/story-analysis.md
+8. Return: SUCCESS (ready for /test-plan)
+```
 
-1. Run `.specify/scripts/powershell/create-test-feature.ps1 -Json "$ARGUMENTS"` from repo root and parse JSON output for BRANCH_NAME, STORY_ID, and ANALYSIS_FILE. All paths must be absolute.
-   **IMPORTANT**: Run this script exactly once. Parse the JSON output to get file paths.
+## Prerequisites
 
-2. Parse the story input and extract:
-   - **Story ID**: JIRA ticket number or story identifier
-   - **Story Title**: Concise description
-   - **Story Description**: Full user story or requirement text
-   - **Acceptance Criteria**: Explicit criteria from the story
-   - **Definition of Done**: Completion requirements
-   - **Dependencies**: Related stories, APIs, services, or prerequisites
+1. Run `.specify/scripts/powershell/create-test-feature.ps1 -Json "$ARGUMENTS"` to initialize the test feature structure.
+   - This creates the branch and feature directory
+   - Parse JSON output for BRANCH_NAME, STORY_KEY, ANALYSIS_FILE
 
-3. Analyze the story for testability:
-   - **Testable Requirements**: Convert vague requirements into measurable test conditions
-   - **Happy Path Scenarios**: Primary user flows that should succeed
-   - **Negative Scenarios**: Error conditions, validation failures, boundary violations
-   - **Edge Cases**: Boundary values, concurrent operations, race conditions
-   - **Non-Functional Requirements**: Performance, security, accessibility, compatibility
-   - **Data Requirements**: Test data needs, data states, data dependencies
+## Analysis Categories
 
-4. Identify ambiguities and questions:
-   - Mark unclear requirements with `[NEEDS CLARIFICATION: specific question]`
-   - Flag missing acceptance criteria
-   - Identify untestable or vague statements (e.g., "system should be fast")
-   - Note assumptions being made
+For each category, extract information from the story:
 
-5. Determine test scope and coverage areas:
-   - **UI Testing**: Frontend components, user interactions, visual validation
-   - **API Testing**: Endpoints, request/response validation, contract testing
-   - **Integration Testing**: Service interactions, database operations, third-party integrations
-   - **E2E Testing**: Complete user journeys across multiple systems
-   - **Performance Testing**: Load, stress, scalability requirements
-   - **Security Testing**: Authentication, authorization, data protection
-   - **Accessibility Testing**: WCAG compliance, screen reader support
+### Functional Requirements
+- What functionality is being delivered?
+- What user actions are involved?
+- What are the expected outcomes?
+- What are the acceptance criteria?
 
-6. Extract system components involved:
-   - **Frontend Components**: Pages, forms, modals, components to test
-   - **Backend Services**: APIs, microservices, databases
-   - **External Systems**: Third-party APIs, payment gateways, notification services
-   - **Test Environment Requirements**: Test data, mock services, environment configurations
+### User Personas
+- Who will use this feature?
+- What roles/permissions are involved?
+- Are there different user types with different behaviors?
 
-7. Identify test automation feasibility:
-   - **High Priority for Automation**: Repetitive, stable, critical path scenarios
-   - **Manual Testing Required**: Exploratory, visual validation, usability testing
-   - **Automation Challenges**: Dynamic content, third-party dependencies, timing issues
+### Data Requirements
+- What data is needed for testing?
+- What are valid/invalid data formats?
+- What are the data boundaries (min/max values)?
+- Are there special characters or edge cases?
 
-8. Generate the story analysis document using `.specify/templates/story-analysis-template.md`:
-   - Replace all placeholders with concrete information
-   - Include all extracted and analyzed content
-   - Preserve all `[NEEDS CLARIFICATION]` markers
-   - Add risk assessment and testing recommendations
+### Integration Points
+- Does this interact with other services/APIs?
+- Are there database operations?
+- Are there third-party integrations?
+- What are the failure modes for each integration?
 
-9. Write the analysis to ANALYSIS_FILE (test-stories/[STORY_ID]/story-analysis.md).
+### Non-Functional Requirements
+- Performance: Response time expectations
+- Security: Authentication/authorization needs
+- Accessibility: WCAG compliance level
+- Compatibility: Browsers, devices, OS versions
 
-10. Validation checks:
-    - [ ] Story ID and title captured
-    - [ ] All acceptance criteria extracted or marked as missing
-    - [ ] At least 3 test scenarios identified (happy path + negative cases)
-    - [ ] Test scope areas defined
-    - [ ] Ambiguities clearly marked
-    - [ ] System components mapped
-    - [ ] Automation feasibility assessed
+### Test Scenarios Identification
+For each requirement, identify:
+1. **Positive scenarios** (expected behavior)
+2. **Negative scenarios** (error handling)
+3. **Edge cases** (boundary conditions)
+4. **Data validation scenarios** (input validation)
 
-11. Report completion:
-    - Story ID and branch name
-    - Path to analysis file
-    - Number of acceptance criteria found
-    - Number of test scenarios identified
-    - Critical clarifications needed (if any)
-    - Suggested next command: `/test-plan` or `/clarify-story` if ambiguities exist
+## Output Structure
 
-Behavior rules:
-- If the story input is insufficient, request more details
-- Do NOT make assumptions about technical implementation details
-- Focus on WHAT to test, not HOW to automate (that comes in strategy phase)
-- Mark every ambiguity explicitly - better to over-clarify than under-clarify
-- If acceptance criteria are missing, infer them from the story description but mark as `[INFERRED]`
-- Extract both functional and non-functional test requirements
+Generate `story-analysis.md` with:
 
-Context: $ARGUMENTS
+```markdown
+# Story Analysis: [STORY-KEY] - [Title]
+
+**Story Key**: [STORY-KEY]
+**Created**: [DATE]
+**Status**: Draft
+**Analyzed By**: AI Agent
+
+## Story Summary
+[Extract from story description]
+
+## Acceptance Criteria
+- [AC1]
+- [AC2]
+- [AC3]
+
+## User Personas
+| Persona | Role | Permissions | Key Behaviors |
+|---------|------|-------------|---------------|
+| ... | ... | ... | ... |
+
+## Functional Requirements
+### FR-001: [Requirement Name]
+**Description**: [What needs to be tested]
+**Test Types**: UI, API, Integration
+**Priority**: High/Medium/Low
+
+## Test Scenario Categories
+
+### Positive Flow Scenarios
+1. **[Scenario Name]**: [Description]
+   - **Precondition**: [What must be true before]
+   - **Steps**: [High-level steps]
+   - **Expected Result**: [What should happen]
+   - **Test Type**: UI/API/Integration
+
+### Negative Flow Scenarios
+1. **[Scenario Name]**: [Description]
+   - **Error Condition**: [What error to trigger]
+   - **Expected Behavior**: [How system should handle]
+   - **Test Type**: UI/API/Integration
+
+### Edge Cases
+1. **[Scenario Name]**: [Description]
+   - **Boundary Condition**: [What edge to test]
+   - **Expected Behavior**: [How system should handle]
+
+### Data Validation Scenarios
+1. **[Validation Rule]**: [Description]
+   - **Valid Inputs**: [Examples]
+   - **Invalid Inputs**: [Examples]
+   - **Expected Validation Messages**: [Messages]
+
+## Non-Functional Requirements
+### Performance
+- Response time: [e.g., < 2 seconds]
+- Load capacity: [e.g., 100 concurrent users]
+
+### Security
+- Authentication required: Yes/No
+- Authorization rules: [Describe]
+- Data sensitivity: [PII, financial, etc.]
+
+### Compatibility
+- Browsers: [Chrome, Firefox, Safari, Edge]
+- Devices: [Desktop, tablet, mobile]
+- Screen sizes: [Responsive breakpoints]
+
+## Test Data Requirements
+| Data Type | Description | Example | Source |
+|-----------|-------------|---------|--------|
+| ... | ... | ... | ... |
+
+## Integration Dependencies
+| System | Endpoint/Method | Purpose | Failure Mode |
+|--------|----------------|---------|--------------|
+| ... | ... | ... | ... |
+
+## Risks and Blockers
+- [Risk 1]: [Description and mitigation]
+- [Risk 2]: [Description and mitigation]
+
+## Test Coverage Summary
+- Total scenarios identified: [N]
+- UI test scenarios: [N]
+- API test scenarios: [N]
+- Integration test scenarios: [N]
+- Edge cases: [N]
+
+## Next Steps
+- [ ] Review story analysis with team
+- [ ] Run /test-plan to create comprehensive test plan
+- [ ] Identify test data sources
+- [ ] Set up test environment
+
+## Ambiguities/Questions
+[NEEDS CLARIFICATION: List any unclear requirements or assumptions]
+```
+
+## Validation Rules
+
+Before completing:
+- [ ] All acceptance criteria mapped to test scenarios
+- [ ] Both positive and negative flows identified
+- [ ] Edge cases documented
+- [ ] Test data requirements clear
+- [ ] Integration points identified
+- [ ] Non-functional requirements captured
+- [ ] Risks documented
+- [ ] No undefined acceptance criteria
+
+## Error Handling
+
+- If story is too vague: Mark with [NEEDS CLARIFICATION] and suggest questions to ask
+- If acceptance criteria missing: Generate implied scenarios but flag for review
+- If integration details missing: Flag as risk/blocker
+- If test data requirements unclear: Suggest data generation approach
+
+## Output
+
+After analysis:
+1. Report story key and analysis file path
+2. List total scenarios identified by type
+3. Flag any ambiguities that need clarification
+4. Suggest next command: `/test-plan`
+
+Context for analysis: $ARGUMENTS
