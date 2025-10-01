@@ -18,26 +18,30 @@ Transform JIRA stories into comprehensive, automated test suites following BDD b
 
 ## 🔄 Workflow Overview
 
-```
-JIRA Story/Ticket (Input)
-    ↓
-/analyze-story        → story-analysis.md
-    ↓
-/clarify-story        → Enhanced story-analysis.md
-    ↓
-/test-plan            → test-plan.md
-    ↓
-/gherkin-scenarios    → gherkin/*.feature files
-    ↓
-/test-strategy        → test-automation-strategy.md
-    ↓
-/implement-tests      → Java test automation code (Serenity Cucumber)
-    ↓
-/review-code          → Code quality report (Quality Gate)
-    ↓
-[Apply fixes if needed]
-    ↓
-Git Commit (Only after passing review)
+```mermaid
+flowchart TD
+    A["JIRA Story/Ticket Input"] --> B["Command: /analyze-story"]
+    B --> C["story-analysis.md"]
+    C --> D["Command: /clarify-story"]
+    D --> E["Enhanced story-analysis.md"]
+    E --> F["Command: /test-plan"]
+    F --> G["test-plan.md"]
+    G --> H["Command: /gherkin-scenarios"]
+    H --> I["gherkin/*.feature files"]
+    I --> J["Command: /test-strategy"]
+    J --> K["test-automation-strategy.md"]
+    K --> L["Command: /implement-tests"]
+    L --> M["Java test automation code<br/>Serenity Cucumber"]
+    M --> N["Command: /review-code"]
+    N --> O["Code quality report<br/>Quality Gate"]
+    O --> P{"Fixes<br/>Needed?"}
+    P -->|"Yes"| L
+    P -->|"No"| Q["Git Commit"]
+    
+    style A fill:#e1f5ff
+    style Q fill:#d4edda
+    style P fill:#fff3cd
+    style O fill:#f8d7da
 ```
 
 ---
