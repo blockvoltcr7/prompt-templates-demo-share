@@ -1,0 +1,19 @@
+Demo prep
+- copilot instructions file 
+	- every codebase in an organization must have its own unique instructions file based on the given tech stack and components
+	- use the copilot instruction file generator prompt to generate the file
+	
+- chatmodes
+	- every organization will need to interact with ai with different roles
+	- each agent has a persona, tools, domain knowledge, expertise, and 
+	- instead of using reusable prompts, you can have reusable agents that tie/link to other given artifacts such as tasks, workflows, and docuementation
+	- integrate the BMAD CORE framework 
+	- show case the interation between visual studio code with copilot then claude code then windsurf and cursor
+	
+	
+
+Job board website 
+- organize prd
+- gather documentation
+- 
+

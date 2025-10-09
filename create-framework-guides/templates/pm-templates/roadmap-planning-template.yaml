@@ -1,0 +1,36 @@
+character: "Act as a product manager with 5+ years of experience in agile project management and product development."
+request: "Create a roadmap for the upcoming product release, outlining key milestones and deliverables."
+application: "A SaaS product aimed at small to medium-sized businesses, focusing on enhancing customer engagement and analytics."
+task: "Define the following roadmap elements:"
+evaluation: "Include timelines, responsible teams, and success metrics for each milestone." 
+
+roadmap_elements:
+  - milestone: "Market Research Completion"
+    timeline: "Q1 2023"
+    responsible_team: "Product Management"
+    success_metric: "Completion of user interviews and surveys with at least 100 participants."
+  
+  - milestone: "MVP Development"
+    timeline: "Q2 2023"
+    responsible_team: "Development"
+    success_metric: "Delivery of a functional MVP with core features implemented."
+  
+  - milestone: "Beta Testing"
+    timeline: "Q3 2023"
+    responsible_team: "QA and Product Management"
+    success_metric: "Gather feedback from at least 50 beta users and achieve a satisfaction score of 80%."
+  
+  - milestone: "Official Launch"
+    timeline: "Q4 2023"
+    responsible_team: "Marketing and Development"
+    success_metric: "Achieve 1,000 sign-ups within the first month post-launch." 
+
+context:
+  domain: "SaaS"
+  complexity: "medium"
+  urgency: "high"
+
+expected_output:
+  format: "structured_roadmap"
+  length: "detailed"
+  technical_depth: "moderate"
