@@ -1,0 +1,267 @@
+# Code Refactoring Template
+# Use this template for technical debt and refactoring tasks
+
+prompt: |
+  ## Character (C)
+  Act as a [seniority_level] software architect with [years]+ years of experience 
+  in [domain_expertise]. You excel at [refactoring_skills] while [key_principles]. 
+  You have deep knowledge of [architectural_patterns] and [language_expertise].
+  
+  # Examples:
+  # - "senior software architect with 10+ years refactoring legacy systems"
+  # - "principal engineer with 12+ years modernizing monolithic applications"
+  # - "tech lead with 8+ years improving code quality and maintainability"
+  
+  ## Request (R)
+  Refactor [component/module/service] from [current_state] to [desired_state] 
+  while [key_constraints]. The refactored code must [quality_requirements] and 
+  [compatibility_requirements].
+  
+  # Examples:
+  # - "Refactor monolithic auth service into clean architecture with dependency injection"
+  # - "Modernize legacy React class components to functional components with hooks"
+  # - "Refactor procedural code to object-oriented design following SOLID principles"
+  
+  ## Examples (E)
+  Target architecture/patterns to follow:
+  
+  ### Pattern 1: [Pattern Name]
+  ```[language]
+  // Current problematic implementation
+  [Show existing code that needs refactoring]
+  ```
+  
+  ```[language]
+  // Target implementation following best practices
+  [Show desired pattern/structure]
+  ```
+  
+  ### Pattern 2: [Another Pattern]
+  ```[language]
+  // Before: [Description of issue]
+  [Example]
+  ```
+  
+  ```[language]
+  // After: [Description of improvement]
+  [Example]
+  ```
+  
+  ### Testing Pattern to Follow
+  ```[language]
+  // Show testing approach for refactored code
+  [Example test structure]
+  ```
+  
+  ## Application (A)
+  **Current State:**
+  - **Component:** [What's being refactored]
+  - **Size:** [Lines of code, number of files]
+  - **Issues:** [Technical debt, code smells, violations]
+  - **Dependencies:** [What depends on this code]
+  - **Tech Stack:** [Current technologies]
+  
+  **Target State:**
+  - **Architecture:** [Desired pattern/structure]
+  - **Principles:** [SOLID, DRY, Clean Code, etc.]
+  - **Technologies:** [Any tech upgrades]
+  - **Benefits:** [Maintainability, testability, performance]
+  
+  **Constraints:**
+  - **Backward Compatibility:** [Required/Not Required]
+  - **Zero Downtime:** [Yes/No]
+  - **API Contracts:** [Must maintain/Can change]
+  - **Timeline:** [Sprint scope, story points]
+  - **Resources:** [Available time, team size]
+  
+  ## Task (T)
+  Execute the following refactoring plan:
+  
+  ### Phase 1: Preparation ([time_estimate])
+  1. **Audit current code:**
+     - Identify all code to be refactored
+     - Document current behavior
+     - Map dependencies and usage
+     - Review existing tests
+  
+  2. **Create baseline:**
+     - Ensure all existing tests pass
+     - Document current performance metrics
+     - Create backup branch
+     - Snapshot current behavior
+  
+  ### Phase 2: Refactoring Strategy ([time_estimate])
+  1. **Break down into steps:**
+     - [Step 1: Small, incremental change]
+     - [Step 2: Another small change]
+     - [Step 3: Continue incrementally]
+  
+  2. **Identify risks:**
+     - [Risk 1 and mitigation]
+     - [Risk 2 and mitigation]
+  
+  ### Phase 3: Implementation ([time_estimate])
+  Refactor the following files/modules:
+  
+  1. **[Module/File 1]:**
+     - Current issues: [list]
+     - Target structure: [description]
+     - Breaking changes: [Yes/No + details]
+  
+  2. **[Module/File 2]:**
+     - Current issues: [list]
+     - Target structure: [description]
+     - Breaking changes: [Yes/No + details]
+  
+  3. **New files to create:**
+     ```
+     [Directory structure of new organization]
+     ```
+  
+  4. **Files to delete:**
+     ```
+     [List of deprecated files]
+     ```
+  
+  ### Phase 4: Testing ([time_estimate])
+  1. **Update existing tests:**
+     - Modify tests to work with refactored code
+     - Ensure behavior is preserved
+     - Improve test quality where needed
+  
+  2. **Add new tests:**
+     - Test new abstractions
+     - Test error cases
+     - Test edge cases
+  
+  3. **Validation:**
+     - All existing tests pass
+     - New test coverage: [percentage]%
+     - Performance benchmarks: [criteria]
+  
+  ### Phase 5: Documentation ([time_estimate])
+  1. **Update documentation:**
+     - Inline code comments
+     - API documentation
+     - Architecture documentation
+     - Migration guide (if needed)
+  
+  2. **Document decisions:**
+     - Architectural Decision Records (ADRs)
+     - Rationale for changes
+     - Trade-offs made
+  
+  ## Evaluation (E)
+  The refactoring must meet ALL of these criteria:
+  
+  ### Code Quality (Required)
+  - ✅ Follows [architectural pattern]
+  - ✅ Adheres to [coding principles]
+  - ✅ Proper separation of concerns
+  - ✅ Single Responsibility Principle followed
+  - ✅ Dependencies properly injected
+  - ✅ No code duplication
+  - ✅ Meaningful names and abstractions
+  - ✅ Linter/formatter passes
+  
+  ### Backward Compatibility (If Required)
+  - ✅ All existing API contracts maintained
+  - ✅ No breaking changes to public interfaces
+  - ✅ Migration path provided for internal usage
+  - ✅ Deprecation warnings added where needed
+  - ✅ Zero downtime deployment possible
+  
+  ### Testing (Required)
+  - ✅ All existing tests pass without modification
+  - ✅ Test coverage maintained or improved: [percentage]%+
+  - ✅ New tests for refactored components
+  - ✅ Integration tests updated
+  - ✅ Performance tests show no regression
+  - ✅ Edge cases covered
+  
+  ### Maintainability (Required)
+  - ✅ Code is easier to understand
+  - ✅ Code is easier to modify
+  - ✅ Code is easier to test
+  - ✅ Reduced coupling between components
+  - ✅ Clear abstractions and interfaces
+  - ✅ Technical debt reduced
+  - ✅ Code complexity metrics improved
+  
+  ### Performance (Required)
+  - ✅ No performance degradation
+  - ✅ Response time within [threshold]% of baseline
+  - ✅ Memory usage within [threshold]% of baseline
+  - ✅ CPU usage within [threshold]% of baseline
+  - ✅ Load testing shows same or better results
+  
+  ### Documentation (Required)
+  - ✅ Architecture documentation updated
+  - ✅ ADRs created for major decisions
+  - ✅ Inline comments for complex logic
+  - ✅ Migration guide (if API changes)
+  - ✅ README updated with new structure
+  - ✅ Examples updated
+  
+  ### Code Review (Required)
+  - ✅ Reviewed by [number]+ senior engineers
+  - ✅ Reviewed by [number]+ team members who use the code
+  - ✅ All comments addressed
+  - ✅ Approval from tech lead/architect
+  - ✅ Knowledge transfer completed
+  
+  ### Deployment (Required)
+  - ✅ Incremental rollout plan if large refactoring
+  - ✅ Feature flags for gradual migration (if needed)
+  - ✅ Monitoring plan for rollout
+  - ✅ Rollback plan prepared
+  - ✅ Team trained on new structure
+
+# Metadata
+context:
+  jira_ticket: "[TECH-ID or REFACTOR-ID]"
+  sprint: "[Sprint XX]"
+  story_points: [number]
+  type: "Technical Debt"
+  priority: "[Medium/Low typically]"
+  epic: "[Technical Debt Epic ID]"
+  team: "[Team Name]"
+  
+refactoring_details:
+  scope: "[Component/Module/Service name]"
+  size: "[Lines of code / Number of files]"
+  complexity: "[Low/Medium/High]"
+  risk: "[Low/Medium/High]"
+  backward_compatibility: "[Required/Not Required]"
+  
+technical_metrics:
+  current:
+    lines_of_code: [number]
+    cyclomatic_complexity: [number]
+    test_coverage: [percentage]
+    technical_debt_hours: [estimate]
+  
+  target:
+    lines_of_code: [target]
+    cyclomatic_complexity: [target]
+    test_coverage: [target_percentage]
+    maintainability_index: [score]
+  
+expected_output:
+  format: "incremental_refactoring_with_tests"
+  approach: "step_by_step_with_validation"
+  testing: "maintain_or_improve_coverage"
+  documentation: "architecture_and_migration_guide"
+  deployment: "safe_incremental_rollout"
+
+# Instructions for filling out this template:
+# 1. Clearly define current state and target state
+# 2. Break refactoring into small, safe steps
+# 3. Emphasize backward compatibility if required
+# 4. Include concrete examples of current vs target patterns
+# 5. Set realistic timelines - refactoring often takes longer than expected
+# 6. Prioritize maintaining test coverage
+# 7. Document architectural decisions
+# 8. Plan for safe deployment and rollback
+# 9. Consider creating separate tickets for large refactorings
+# 10. Ensure team alignment on approach before starting

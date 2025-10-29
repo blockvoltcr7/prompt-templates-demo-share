@@ -1,0 +1,227 @@
+# Feature Implementation Template
+# Use this template for implementing new features from Jira stories
+
+prompt: |
+  ## Character (C)
+  Act as a [seniority_level] [specialization] developer with [years]+ years of 
+  experience in [primary_tech_stack]. You specialize in [domain_expertise] and 
+  have deep expertise in [specific_skills]. You follow [principles] and always 
+  write [code_quality_standards].
+  
+  # Examples:
+  # - "senior full-stack developer with 8+ years in React/Node.js"
+  # - "principal backend engineer with 12+ years in distributed systems"
+  # - "senior mobile developer with 6+ years in React Native and iOS"
+  
+  ## Request (R)
+  Implement [specific_feature] that [business_value] for [user_type]. The 
+  implementation must [key_requirements] and [quality_standards].
+  
+  # Examples:
+  # - "Implement a real-time notification system that delivers instant updates"
+  # - "Create a user dashboard that visualizes key metrics for administrators"
+  # - "Build an API endpoint that processes payment transactions securely"
+  
+  ## Examples (E)
+  Follow our existing code patterns:
+  
+  ```[language]
+  // Paste relevant code snippets from your codebase showing:
+  // 1. Controller/route handler patterns
+  // 2. Service layer patterns
+  // 3. Error handling conventions
+  // 4. Testing patterns
+  // 5. Logging patterns
+  
+  [Your actual codebase patterns here]
+  ```
+  
+  Anti-patterns to avoid:
+  ```[language]
+  // Show what NOT to do
+  [Examples of patterns you don't want]
+  ```
+  
+  ## Application (A)
+  [System_name] serving [scale_metrics]:
+  
+  **Tech Stack:**
+  - **Runtime:** [e.g., Node.js 18.x, Python 3.11]
+  - **Language:** [e.g., TypeScript 5.0, Python with type hints]
+  - **Framework:** [e.g., Express 4.x, FastAPI, Django]
+  - **Database:** [e.g., PostgreSQL 14, MongoDB 6.x]
+  - **Caching:** [e.g., Redis 7.x, Memcached]
+  - **Message Queue:** [e.g., RabbitMQ, Kafka, SQS]
+  - **Testing:** [e.g., Jest, pytest, JUnit]
+  - **API Docs:** [e.g., OpenAPI 3.0, GraphQL schema]
+  
+  **Architecture:**
+  - [e.g., Microservices, Monolithic, Serverless]
+  - [e.g., RESTful API, GraphQL, gRPC]
+  - [e.g., Event-driven, CQRS, DDD]
+  
+  **Infrastructure:**
+  - [e.g., AWS ECS, Kubernetes, Lambda]
+  - [e.g., AWS RDS, Cloud SQL, DocumentDB]
+  - [e.g., CloudWatch, DataDog, New Relic]
+  
+  **Performance Requirements:**
+  - [e.g., 99.9% uptime SLA]
+  - [e.g., < 200ms P95 response time]
+  - [e.g., Handle 10K concurrent requests]
+  
+  ## Task (T)
+  Implement the following components:
+  
+  ### 1. API Endpoint(s)
+  **[HTTP_METHOD] /api/v[version]/[resource]**
+  
+  Request:
+  ```json
+  {
+    // Request body schema
+  }
+  ```
+  
+  Response ([status_code]):
+  ```json
+  {
+    // Response body schema
+  }
+  ```
+  
+  ### 2. Files to Create/Modify
+  ```
+  src/
+  ├── routes/
+  │   └── [resource].routes.[ext]
+  ├── controllers/
+  │   └── [resource].controller.[ext]
+  ├── services/
+  │   └── [resource].service.[ext]
+  ├── repositories/
+  │   └── [resource].repository.[ext]
+  ├── validators/
+  │   └── [resource].validator.[ext]
+  ├── types/
+  │   └── [resource].types.[ext]
+  └── __tests__/
+      ├── unit/
+      │   └── [resource].service.test.[ext]
+      └── integration/
+          └── [resource].routes.test.[ext]
+  ```
+  
+  ### 3. Database Schema
+  ```sql
+  -- Provide schema changes if applicable
+  CREATE TABLE [table_name] (
+    -- columns
+  );
+  
+  -- Indexes
+  CREATE INDEX [index_name] ON [table];
+  ```
+  
+  ### 4. Business Rules
+  - [Rule 1]
+  - [Rule 2]
+  - [Rule 3]
+  
+  ### 5. Error Scenarios to Handle
+  - [Error scenario 1]
+  - [Error scenario 2]
+  - [Error scenario 3]
+  
+  ### 6. Integration Points
+  - **[Service/API]:** [Purpose]
+  - **[Service/API]:** [Purpose]
+  
+  ## Evaluation (E)
+  The implementation must meet ALL of these criteria:
+  
+  ### Code Quality (Required)
+  - ✅ [Language-specific quality requirement]
+  - ✅ All functions have documentation comments
+  - ✅ Follows project structure and naming conventions
+  - ✅ Proper separation of concerns
+  - ✅ Linter passes with zero warnings
+  - ✅ No hardcoded values (use configuration)
+  - ✅ Comprehensive error handling
+  - ✅ Structured logging with correlation IDs
+  
+  ### Testing (Required)
+  - ✅ Unit tests with [percentage]% coverage
+  - ✅ Integration tests for API endpoints
+  - ✅ Test scenarios include:
+    - ✅ Happy path (successful execution)
+    - ✅ Error cases (validation, not found, etc.)
+    - ✅ Edge cases (boundary conditions)
+    - ✅ [Domain-specific scenarios]
+  - ✅ Mock external dependencies
+  - ✅ All tests pass in CI/CD
+  
+  ### Security (Required)
+  - ✅ Authentication/authorization implemented
+  - ✅ Rate limiting configured
+  - ✅ Input validation with schema
+  - ✅ SQL injection prevention
+  - ✅ XSS prevention
+  - ✅ Sensitive data protection
+  - ✅ Security headers configured
+  
+  ### Performance (Required)
+  - ✅ Response time < [threshold]ms P95
+  - ✅ Database queries optimized
+  - ✅ Proper use of transactions
+  - ✅ Async operations for non-critical paths
+  - ✅ Caching strategy implemented
+  - ✅ Resource pooling configured
+  
+  ### Documentation (Required)
+  - ✅ API documentation (OpenAPI/GraphQL schema)
+  - ✅ README section with usage examples
+  - ✅ Inline comments for complex logic
+  - ✅ Error response documentation
+  - ✅ Configuration documentation
+  
+  ### Observability (Required)
+  - ✅ Structured logging
+  - ✅ Correlation ID propagation
+  - ✅ Metrics: [specific metrics to track]
+  - ✅ Error tracking with context
+  - ✅ Performance monitoring
+  
+  ### Jira/Git Integration (Required)
+  - ✅ Commits reference: "[type]([scope]): [description] [[TICKET-ID]]"
+  - ✅ Branch name: [type]/[TICKET-ID]-[description]
+  - ✅ PR links to Jira ticket
+  - ✅ Acceptance criteria checklist in PR
+  - ✅ Code review by [number]+ team members
+
+# Metadata for tracking and organization
+context:
+  jira_ticket: "[TICKET-ID]"
+  sprint: "[Sprint XX]"
+  story_points: [number]
+  priority: "[High/Medium/Low]"
+  team: "[Team Name]"
+  epic: "[EPIC-ID]"
+  dependencies: "[List any dependent tickets]"
+  
+expected_output:
+  format: "complete_production_ready_implementation"
+  files: ["routes", "controllers", "services", "repositories", "validators", "tests", "docs"]
+  testing: "unit_and_integration_with_mocks"
+  documentation: "inline_and_api_docs"
+  security: "authentication_validation_rate_limiting"
+  observability: "logging_metrics_tracing"
+
+# Instructions for filling out this template:
+# 1. Replace all [placeholder] values with your specific requirements
+# 2. Remove sections that don't apply to your feature
+# 3. Add additional sections as needed for your domain
+# 4. Include actual code examples from your codebase in the Examples section
+# 5. Be as specific as possible - avoid generic descriptions
+# 6. Update the evaluation criteria to match your team's standards
+# 7. Save filled templates in your team's knowledge base for reuse

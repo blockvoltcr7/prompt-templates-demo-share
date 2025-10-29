@@ -13,11 +13,13 @@ The project is organized into several key directories:
 - **guides/**: Contains detailed guides tailored for specific roles.
   - **qa-engineers/**: Focuses on QA engineers, providing insights into crafting effective prompts for test automation and strategy.
   - **product-managers/**: Offers guidance for product managers on planning and scoping new projects, including stakeholder engagement and feature prioritization.
+  - **developers/**: Comprehensive guide for software developers working in agile scrum teams, with specific focus on Jira integration and AI-assisted development.
   - **shared/**: Includes shared resources such as an overview of the CREATE framework and a glossary of key terms.
 
 - **templates/**: Provides templates for various tasks, helping users to structure their work effectively.
   - **qa-templates/**: Templates for QA-related tasks, including automation assessments and test strategies.
   - **pm-templates/**: Templates for product management tasks, such as project scoping and roadmap planning.
+  - **dev-templates/**: Templates for developers, including feature implementation, bug fixes, and code refactoring.
 
 - **assets/**: Contains visual aids, including diagrams that illustrate the CREATE framework and its implementation processes.
 
@@ -27,6 +29,7 @@ To get started with the CREATE framework, explore the guides relevant to your ro
 
 1. **For QA Engineers**: Refer to the `guides/qa-engineers/CREATE_Framework_Guide_for_QA.md` for structured approaches to test automation and strategy.
 2. **For Product Managers**: Check out the `guides/product-managers/CREATE_Framework_Guide_for_PM.md` for insights on project planning and scoping.
+3. **For Developers**: See the `guides/developers/CREATE_Framework_Guide_for_Developers.md` for AI-assisted development in agile teams with Jira integration.
 
 ## Contribution
 

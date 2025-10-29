@@ -1,0 +1,233 @@
+# Bug Fix Template
+# Use this template for fixing bugs tracked in Jira
+
+prompt: |
+  ## Character (C)
+  Act as a [seniority_level] [specialization] developer with [years]+ years of 
+  experience debugging [types_of_issues] in [tech_stack]. You specialize in 
+  [debugging_expertise] and have deep knowledge of [relevant_tools]. You always 
+  perform thorough root cause analysis before implementing fixes and prioritize 
+  permanent solutions over temporary workarounds.
+  
+  # Examples:
+  # - "senior backend engineer with 8+ years debugging distributed systems"
+  # - "principal frontend developer with 10+ years optimizing React performance"
+  # - "senior DevOps engineer with 12+ years troubleshooting production issues"
+  
+  ## Request (R)
+  [Investigate/Fix/Debug] [specific_issue] that [symptom_description] causing 
+  [business_impact]. The fix must [requirements] and prevent [recurrence_criteria].
+  
+  # Examples:
+  # - "Fix a race condition that causes data corruption in 0.1% of transactions"
+  # - "Debug and resolve API timeout issues affecting payment processing"
+  # - "Investigate memory leak causing application crashes every 24 hours"
+  
+  ## Examples (E)
+  Common [issue_type] patterns to investigate:
+  
+  ### Pattern 1: [Pattern Name]
+  ```[language]
+  // ❌ BAD: Shows the problematic pattern
+  [Example of what causes issues]
+  ```
+  
+  ```[language]
+  // ✅ GOOD: Shows the correct pattern
+  [Example of proper implementation]
+  ```
+  
+  ### Pattern 2: [Pattern Name]
+  ```[language]
+  // ❌ BAD: Another problematic pattern
+  [Example]
+  ```
+  
+  ```[language]
+  // ✅ GOOD: Correct approach
+  [Example]
+  ```
+  
+  [Include 3-5 relevant patterns based on bug type]
+  
+  ## Application (A)
+  **System Context:**
+  - **Service:** [Service name and purpose]
+  - **Runtime:** [Environment details]
+  - **Tech Stack:** [Relevant technologies]
+  - **Deployment:** [Infrastructure details]
+  - **Current State:** [Metrics showing the issue]
+  
+  **Affected Components:**
+  ```
+  [List of files/modules potentially involved]
+  ```
+  
+  **Monitoring Data:**
+  - [Key metric 1]: [Current value vs expected]
+  - [Key metric 2]: [Current value vs expected]
+  - [Pattern observed]: [Description]
+  - [Frequency]: [How often it occurs]
+  
+  **Recent Changes:**
+  - [X days ago]: [Change that might be related]
+  - [Y days ago]: [Another relevant change]
+  - [When issue started]: [Timeline correlation]
+  
+  ## Task (T)
+  Perform the following investigation and fix workflow:
+  
+  ### Phase 1: Investigation ([time_estimate])
+  1. **Reproduce the issue:**
+     - [Reproduction steps]
+     - [Expected vs actual behavior]
+     - [Required conditions]
+  
+  2. **Gather diagnostic data:**
+     - [Logs to review]
+     - [Metrics to analyze]
+     - [Tools to use]
+  
+  3. **Analyze root cause:**
+     - [Areas to investigate]
+     - [Hypotheses to test]
+     - [Code sections to review]
+  
+  ### Phase 2: Root Cause Analysis ([time_estimate])
+  1. Identify exact cause of the issue
+  2. Explain WHY it occurs
+  3. Determine when it was introduced
+  4. Assess scope of impact
+  
+  ### Phase 3: Fix Implementation ([time_estimate])
+  1. **Implement permanent fix:**
+     - [What needs to change]
+     - [Files to modify]
+     - [Approach to use]
+  
+  2. **Add safeguards:**
+     - [Prevention measures]
+     - [Validation checks]
+     - [Error handling]
+  
+  3. **Update monitoring:**
+     - [New metrics to track]
+     - [Alerts to add]
+     - [Dashboards to update]
+  
+  ### Phase 4: Testing ([time_estimate])
+  1. **Create regression test:**
+     - Test that reproduces the bug
+     - Verify fix resolves the issue
+     - Ensure no side effects
+  
+  2. **Test coverage:**
+     - [Scenario 1]
+     - [Scenario 2]
+     - [Scenario 3]
+  
+  3. **Validation:**
+     - [Success criteria 1]
+     - [Success criteria 2]
+     - All existing tests pass
+  
+  ### Phase 5: Documentation ([time_estimate])
+  1. Document root cause in Jira
+  2. Add inline comments explaining fix
+  3. Update relevant documentation
+  4. Create post-mortem if critical
+  
+  ## Evaluation (E)
+  The fix must meet ALL of these criteria:
+  
+  ### Root Cause Analysis (Required)
+  - ✅ Exact cause identified with evidence
+  - ✅ Clear explanation of WHY issue occurs
+  - ✅ Evidence from [logs/metrics/profiling]
+  - ✅ Timeline of when issue was introduced
+  - ✅ Scope of impact assessed
+  
+  ### Fix Quality (Required)
+  - ✅ Addresses root cause, not just symptoms
+  - ✅ No recurrence after [test_duration]
+  - ✅ [Specific success metric]
+  - ✅ Proper cleanup/resource management
+  - ✅ No new issues introduced
+  - ✅ Backward compatible
+  - ✅ Performance regression < [threshold]%
+  
+  ### Testing (Required)
+  - ✅ Regression test added (fails before fix, passes after)
+  - ✅ Edge cases covered
+  - ✅ [Duration] of testing without recurrence
+  - ✅ All existing tests pass
+  - ✅ Test coverage maintained at [percentage]%+
+  
+  ### Monitoring & Prevention (Required)
+  - ✅ Added metrics to detect similar issues
+  - ✅ Alerts configured for early detection
+  - ✅ Monitoring dashboard updated
+  - ✅ Runbook updated with troubleshooting steps
+  - ✅ Prevention measures documented
+  
+  ### Documentation (Required)
+  - ✅ Root cause documented in Jira
+  - ✅ Inline code comments explain fix
+  - ✅ [Post-mortem if P0/P1]
+  - ✅ Knowledge base article if recurring pattern
+  - ✅ Team notified of fix and lessons learned
+  
+  ### Deployment (Required)
+  - ✅ Fix reviewed by [number]+ engineers
+  - ✅ Deployed to staging first
+  - ✅ Monitored in staging for [duration]
+  - ✅ Rollback plan prepared
+  - ✅ [On-call/stakeholders] notified
+  
+  ### Timeline (If Critical)
+  - ✅ Investigation complete within [time]
+  - ✅ Fix implemented within [time]
+  - ✅ Deployed within [SLA time]
+  - ✅ Stable after [validation period]
+
+# Metadata
+context:
+  jira_ticket: "[BUG-ID]"
+  priority: "[Critical/High/Medium/Low]"
+  severity: "[P0/P1/P2/P3/P4]"
+  sprint: "[Sprint XX or 'Hotfix']"
+  type: "[Bug/Production Issue/Performance/Security]"
+  sla: "[Response/Fix time if applicable]"
+  
+bug_details:
+  environment: "[Production/Staging/Dev]"
+  frequency: "[How often it occurs]"
+  first_observed: "[Date/time]"
+  affected_users: "[Number or percentage]"
+  business_impact: "[Description of impact]"
+  workaround_available: "[Yes/No + description]"
+  
+incident_context: # If production incident
+  last_occurrence: "[Date/time]"
+  downtime_duration: "[If applicable]"
+  revenue_impact: "[If applicable]"
+  customer_complaints: "[Count]"
+  
+expected_output:
+  format: "root_cause_analysis_and_fix"
+  priority_order:
+    1: "root_cause_identification"
+    2: "permanent_fix_implementation"  
+    3: "regression_tests"
+    4: "monitoring_and_prevention"
+  documentation: "[detailed_rca/basic_summary/postmortem]"
+
+# Instructions for filling out this template:
+# 1. Fill in [placeholder] values with bug-specific details
+# 2. Include relevant error messages, stack traces, or logs
+# 3. Provide actual code examples of potential problematic patterns
+# 4. Specify exact files/components to investigate
+# 5. Set realistic time estimates for each phase
+# 6. Adjust evaluation criteria based on bug severity
+# 7. For critical bugs, include incident response details
+# 8. Document in team wiki for future reference
