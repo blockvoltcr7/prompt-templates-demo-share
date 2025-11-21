@@ -6,10 +6,10 @@
 
 ## 📊 Presentation Structure Overview
 
-**Total Slides:** 13
-**Estimated Time:** 25-30 minutes + 10 minutes Q&A
+**Total Slides:** 14
+**Estimated Time:** 30-35 minutes + 10 minutes Q&A
 **Audience:** Solution Architects
-**Goal:** Secure approval for Q4 pilot program
+**Goal:** Secure approval for Q4 pilot program (two-step instruction system)
 
 ---
 
@@ -19,6 +19,8 @@
 Problem (Slides 2-3)
   ↓
 Solution Architecture (Slides 4-5)
+  ↓
+Path-Specific Instructions (Slide 5.5) ← NEW
   ↓
 Implementation Details (Slides 6-7)
   ↓
@@ -153,37 +155,107 @@ Can't cite actual files from 50 different repositories
 
 ---
 
-### **SLIDE 5: The Superpower: Automated Generation** ⭐ NEW
+### **SLIDE 5: The Superpower: Automated Two-Step Generation** ⭐ NEW
 
-# The Prompt Template: Automated, Evidence-Based Analysis
+# The Prompt Templates: Automated, Evidence-Based Analysis
 
 #### Challenge: Creating 50+ custom instruction files manually = 200+ hours
 
-#### Solution: Standardized Prompt Template
+#### Solution: Two-Step Automated Approach
 
+#### **STEP 1: Generate Comprehensive Base (2-3 minutes)**
 ```
 ┌─────────────────────────────────────────────────────────┐
-│ 1. Developer runs prompt in VS Code (Agent Mode)       │
-│ 2. Copilot analyzes codebase for 1-2 minutes           │
-│ 3. Template generates 90% complete instruction file     │
-│ 4. Team reviews and refines the 10%                     │
-│ 5. Commit to .github/copilot-instructions.md           │
-│ 6. Re-run quarterly as codebase evolves                 │
+│ Primary Prompt Template                                 │
+│ ↓                                                        │
+│ 1. Developer runs primary prompt in VS Code            │
+│ 2. Copilot analyzes entire codebase                    │
+│ 3. Generates complete .github/copilot-instructions.md  │
+│ 4. Team reviews and approves                           │
+│ ↓                                                        │
+│ Result: Comprehensive context for all sessions         │
 └─────────────────────────────────────────────────────────┘
 ```
 
-#### The Template Enforces:
-- ✅ **Consistent structure** across all repos (same sections)
-- ✅ **Evidence-based content** (cites actual files)
-- ✅ **Security rules** (no hardcoded secrets, proper auth)
-- ✅ **Variable content** (Java repos ≠ React repos)
+#### **STEP 2: Generate Focused Guidance (2-3 minutes)**
+```
+┌─────────────────────────────────────────────────────────┐
+│ Follow-Up Prompt Template                               │
+│ ↓                                                        │
+│ 1. Run follow-up prompt on approved monolithic file    │
+│ 2. Creates specialized .github/instructions/*.md files │
+│    ├── backend.instructions.md (Java/Spring Boot)      │
+│    ├── frontend.instructions.md (React/TypeScript)     │
+│    └── tests.instructions.md (Testing patterns)        │
+│ 3. Appends references to monolithic file               │
+│ ↓                                                        │
+│ Result: Focused guidance without noise                  │
+└─────────────────────────────────────────────────────────┘
+```
 
-#### Result: Scalable process + precise guidance
+#### **Benefits:**
+- ✅ **Comprehensive context** (monolithic file loaded always)
+- ✅ **Focused guidance** (specialized files load when editing matching files)
+- ✅ **No noise** (React devs don't see Java patterns)
+- ✅ **Scalable** (both steps automated, 5 minutes total)
 
 #### 🎤 What to Say:
-> "Now you're probably thinking—how do we create 50 custom instruction files without spending 200 hours of engineering time? This is the superpower: we've built a prompt template that automates the analysis. A developer opens VS Code in any repository, runs the prompt in Copilot agent mode, and it analyzes the codebase for 1-2 minutes. The template enforces a consistent process—it looks at package.json, configuration files, actual source code, test files—and generates a 90% complete instruction file with evidence citations. The team reviews it, tweaks the 10% that needs human judgment, and commits it. Re-run quarterly when the codebase evolves. This is automated, scalable, and maintains consistency in approach while allowing necessary variation in content."
+> "Now you're probably thinking—how do we create these custom instruction files without spending 200 hours? This is the superpower: we've built TWO prompt templates that work together. Step 1: Run the primary prompt template—it analyzes the entire codebase and generates a complete instruction file with all patterns. The team reviews and approves it. Step 2: Run the follow-up prompt—it takes that approved file and creates specialized instruction files for different parts of the codebase: backend.instructions.md for Java code, frontend.instructions.md for React code, tests.instructions.md for test files. When a developer edits a Java file, Copilot loads BOTH the complete file for context AND the focused backend file for relevant patterns. No noise—React developers don't see Java patterns. Total time: 5 minutes. Automated, scalable, and eliminates the noise problem."
 
 **Time:** 3 minutes
+
+---
+
+### **SLIDE 5.5: How GitHub Copilot Loads Your Instructions** ⭐ NEW
+
+# Path-Specific Instructions: The Advanced Layer
+
+#### **Session Start (Every Time):**
+```
+1. Copilot loads .github/copilot-instructions.md (monolithic)
+2. Provides complete project context for all chat sessions
+```
+
+#### **When Editing UserController.java:**
+```
+3. Detects file matches "src/main/java/**/*.java"
+4. ALSO loads .github/instructions/backend.instructions.md
+5. Developer gets:
+   ✅ Complete context (from monolithic file)
+   ✅ Focused Java/Spring Boot guidance (from specialized file)
+```
+
+#### **When Editing LoginForm.tsx:**
+```
+3. Detects file matches "src/**/*.tsx"
+4. ALSO loads .github/instructions/frontend.instructions.md
+5. Developer gets:
+   ✅ Complete context (from monolithic file)
+   ✅ Focused React guidance (from specialized file)
+```
+
+#### **The Result: Best of Both Worlds**
+```
+Monolithic File:
+├── Complete project context
+├── All technologies documented
+└── Loaded for every session
+
+Specialized Files (auto-loaded when editing):
+├── backend.instructions.md → Java patterns only
+├── frontend.instructions.md → React patterns only
+└── tests.instructions.md → Testing patterns only
+
+Benefits:
+✅ Comprehensive understanding (from monolithic)
+✅ Relevant, focused patterns (from specialized)
+✅ No noise (React devs don't see Java patterns)
+```
+
+#### 🎤 What to Say:
+> "Let me explain how this works in practice. When you start a Copilot chat session, it always loads the complete monolithic instruction file—this gives it full project context. But here's the magic: when you open UserController.java, Copilot detects it matches 'src/main/java' and ALSO loads the backend specialized file. Now you have both comprehensive context AND focused Java patterns. Switch to editing a React component? Copilot automatically loads the frontend specialized file instead. Same complete context, different focused guidance. React developers never see Java patterns cluttering their AI suggestions. This eliminates noise while maintaining comprehensive understanding."
+
+**Time:** 2 minutes
 
 ---
 
@@ -218,41 +290,53 @@ DTOs, routing conventions, error handling, API client patterns
 
 ---
 
-### **SLIDE 7: Collaboration Workflow** ⭐ NEW
+### **SLIDE 7: Collaboration Workflow** ⭐ UPDATED
 
-# Living Documentation: Template → Team Refinement → Evolution
+# Living Documentation: Two-Step Template → Team Refinement → Evolution
 
 #### Not Top-Down Mandate — Team-Owned Documentation
 
-#### Phase 1: GENERATE (Automated - 2 minutes)
+#### Phase 1: GENERATE Monolithic (Automated - 2 minutes)
 ```
-├── Junior or senior dev runs prompt template in repo
-├── Template analyzes codebase and generates instruction file
-└── Output: 90% accurate, evidence-based file
+├── Run primary prompt template in repo
+├── Template analyzes codebase
+└── Output: Complete .github/copilot-instructions.md (90% accurate)
 ```
 
-#### Phase 2: REFINE (Team Collaboration - 15 minutes)
+#### Phase 2: REFINE Monolithic (Team - 15 minutes)
 ```
 ├── Senior dev reviews for accuracy
 ├── Team adds project-specific context (e.g., "never use X library")
 ├── Remove irrelevant sections
-└── Output: Team-approved instruction file
+└── Output: Approved monolithic instruction file
 ```
 
-#### Phase 3: MAINTAIN (Quarterly - 2 minutes)
+#### Phase 3: GENERATE Specialized (Automated - 2 minutes) ⭐ NEW
 ```
-├── Re-run template when codebase evolves significantly
+├── Run follow-up prompt template
+├── Creates path-specific .github/instructions/*.md files
+│   ├── backend.instructions.md
+│   ├── frontend.instructions.md
+│   └── tests.instructions.md
+├── Appends references to monolithic file
+└── Output: Specialized files + updated monolithic with references
+```
+
+#### Phase 4: MAINTAIN (Quarterly - 5 minutes)
+```
+├── Re-run BOTH prompts when codebase evolves significantly
 ├── Merge new patterns with team customizations
-└── Output: Instruction file stays current
+└── Output: All files stay current (monolithic + specialized)
 ```
 
 #### Benefits:
-- ✅ **Template ensures consistency** in structure
+- ✅ **Templates ensure consistency** in structure
 - ✅ **Team ensures accuracy** of content
+- ✅ **Two-step process** eliminates noise
 - ✅ **Low maintenance burden** (automated + minimal human refinement)
 
 #### 🎤 What to Say:
-> "This isn't a top-down mandate where architects dictate rules. The template generates the foundation automatically, but teams own the content. A junior developer can run the template—it doesn't require senior-level expertise. A senior reviews it for accuracy. The team adds any project-specific rules that only they would know. And it gets committed. When the codebase changes significantly—maybe you adopt a new state management library or refactor your architecture—you re-run the template quarterly and merge the updates. This is living documentation with minimal overhead. The automation does the heavy lifting; humans provide the judgment."
+> "This isn't a top-down mandate where architects dictate rules. The templates generate the foundation automatically, but teams own the content. Phase 1: Run the primary prompt—it generates the complete monolithic file. Phase 2: Team reviews and refines it. Phase 3: Run the follow-up prompt—it automatically creates specialized instruction files for backend, frontend, and tests, and adds references to the monolithic file. Phase 4: Quarterly maintenance—re-run both prompts when the codebase evolves. Total time: about 20 minutes initially, 5 minutes for quarterly updates. This is living documentation with minimal overhead. The automation does the heavy lifting; humans provide the judgment."
 
 **Time:** 2 minutes
 
@@ -334,75 +418,86 @@ All team members access best practices via AI assistant
 
 ---
 
-### **SLIDE 10: Implementation Roadmap**
+### **SLIDE 10: Implementation Roadmap** ⭐ UPDATED
 
 # Implementation Roadmap
 
 ## Q4 2024 - PILOT (Weeks 1-8)
 ```
 ├── Select 3-5 high-priority repos (mix of Java, React, Python)
-├── Run prompt template and generate instruction files
+├── Run PRIMARY prompt: Generate monolithic files
+├── Run FOLLOW-UP prompt: Generate specialized files ⭐ NEW
+├── Measure impact of two-step approach ⭐ NEW
 ├── Gather developer feedback via surveys
-├── Measure PR metrics (review time, revision cycles)
-└── Goal: 50% adoption in pilot repos
+├── Measure PR metrics (review time, revision cycles, noise reduction) ⭐ UPDATED
+└── Goal: Validate two-step system (50% adoption in pilot repos) ⭐ UPDATED
 ```
 
 ## Q1 2025 - ROLLOUT (Weeks 9-20)
 ```
-├── Refine template based on pilot learnings
+├── Refine BOTH templates based on pilot learnings ⭐ UPDATED
 ├── Distribute to all active/production repositories
-├── Train teams on generation + refinement workflow
+├── Train teams on TWO-STEP workflow (primary + follow-up) ⭐ UPDATED
+├── Document when/how to use each prompt ⭐ NEW
 ├── Integrate with onboarding materials
-└── Goal: 100% adoption in active repos
+└── Goal: 100% adoption (monolithic + specialized files) ⭐ UPDATED
 ```
 
 ## Q2 2025 - AUTOMATION (Weeks 21+)
 ```
-├── GitHub Actions to detect outdated instruction files
+├── GitHub Actions to detect outdated instruction files (both types) ⭐ UPDATED
 ├── Automated PR suggestions when patterns drift
-├── Dashboard showing instruction file coverage
-└── Goal: Self-sustaining maintenance
+├── Dashboard showing coverage (monolithic + specialized) ⭐ UPDATED
+└── Goal: Self-sustaining maintenance for both file types ⭐ UPDATED
 ```
 
 #### Success Metrics:
 - ✅ PR review time (target: -20%)
 - ✅ Developer satisfaction scores (target: +30%)
 - ✅ Onboarding time for new hires (target: -50%)
+- ✅ Noise reduction (specialized files eliminate irrelevant patterns) ⭐ NEW
 
 #### 🎤 What to Say:
-> "Here's the rollout plan. Q4, we pilot with 3-5 repositories to validate the approach and gather hard data on the impact. We're measuring PR review time, developer satisfaction, and code quality metrics. Q1, we roll out to all active repositories using the refined template, and we train teams on the generation and refinement workflow. Q2, we add automation—GitHub Actions that detect when instruction files are outdated and automatically suggest updates. We'll also build a dashboard showing coverage across the organization. This is incremental, data-driven, and low-risk. We're not doing a big-bang rollout; we're validating first, then scaling."
+> "Here's the rollout plan. Q4, we pilot with 3-5 repositories to validate the TWO-STEP approach. We run the primary prompt to generate monolithic files, then the follow-up prompt to create specialized files. We're measuring not just PR review time and satisfaction, but also noise reduction—do React developers appreciate not seeing Java patterns? Q1, we roll out to all repositories. We train teams on the two-step workflow: run primary, review, run follow-up, commit both. We document when and how to use each prompt. Q2, we automate detection for BOTH file types—GitHub Actions will detect when either monolithic or specialized files are outdated. This is incremental, data-driven, and low-risk. We're validating the advanced system first, then scaling."
 
 **Time:** 2 minutes
 
 ---
 
-### **SLIDE 11: Demo**
+### **SLIDE 11: Demo** ⭐ UPDATED
 
-# Demo: Evidence-Based Instructions in Action
+# Demo: Two-Step Instruction System in Action
 
 #### Live Walkthrough: Our Automation Framework Repository
 
-**1️⃣ Open .github/copilot-instructions.md**
-→ See evidence-based patterns with file citations
+**1️⃣ Open .github/copilot-instructions.md (Monolithic)**
+→ See complete project context with all technologies documented
 
-**2️⃣ Ask Copilot to generate a new API endpoint**
-→ Watch it follow our @RestController conventions
+**2️⃣ Open .github/instructions/backend.instructions.md (Specialized)** ⭐ NEW
+→ See focused Spring Boot patterns only (no React noise)
 
-**3️⃣ Generate a DTO**
+**3️⃣ Edit UserController.java** ⭐ NEW
+→ Show Copilot using BOTH files together (complete + focused)
+
+**4️⃣ Ask Copilot to generate a new API endpoint**
+→ Follows patterns from specialized backend file
+
+**5️⃣ Generate a DTO**
 → Matches our Lombok + validation annotation patterns
 
-**4️⃣ Create an integration test**
-→ Uses @SpringBootTest + TestContainers automatically
+**6️⃣ Switch to LoginForm.tsx** ⭐ NEW
+→ Show different specialized file loads (frontend.instructions.md)
+→ Now gets React patterns, NOT Java patterns
 
-**5️⃣ Compare to "before" (without instructions)**
-→ Generic code vs. pattern-matched code
+**7️⃣ Compare: With vs without specialized files** ⭐ NEW
+→ Show noise reduction (React dev doesn't see Java patterns)
 
 #### This isn't theoretical—it's working in production today.
 
 #### 🎤 What to Say:
-> "Let me show you this in action. I'm going to open one of our pilot repositories and walk through the instruction file. Notice the file citations—this is evidence-based, pointing to actual code. Now watch what happens when I ask Copilot to generate a new API endpoint. It follows our @RestController conventions automatically, matches our URL patterns, uses our error handling approach. Same with DTOs—Lombok annotations, validation annotations, everything matches our existing patterns. Integration tests use TestContainers, just like our existing test suite. Now let me show you what Copilot suggests WITHOUT instructions—it's generic Spring Boot code that doesn't match our conventions. The difference is dramatic."
+> "Let me show you the two-step system in action. First, I'll open the monolithic instruction file—this has complete project context, all technologies documented. Now I'll open the specialized backend file—notice it only has Java/Spring Boot patterns. No React, no Python, just focused guidance. Now watch what happens when I edit UserController.java. Copilot loads BOTH files—the complete context AND the focused backend patterns. I ask it to generate a new endpoint, and it follows our exact conventions from the specialized file. Now watch this—I switch to editing a React component, LoginForm.tsx. Copilot automatically loads the DIFFERENT specialized file—frontend.instructions.md. Same monolithic context, but now it gets React patterns instead of Java. React developers never see Java clutter in their AI suggestions. This is the noise reduction in action."
 
-**Time:** 5 minutes (including live demo)
+**Time:** 6 minutes (including live demo) ⭐ UPDATED
 
 ---
 
@@ -432,10 +527,16 @@ All team members access best practices via AI assistant
 
 ✅ **Response:** Q2 automation includes GitHub Actions that detect outdated files and create PRs with suggested updates. Low-touch maintenance.
 
-#### 🎤 What to Say:
-> "Let me address the concerns I expect you're thinking about. First, inconsistency—won't 50 different files create chaos? No, because the template enforces consistency in HOW we generate instructions. We're using the same process, the same structure, the same security rules everywhere. The content differs because it should; Java isn't React. That's precision, not inconsistency. Second, maintenance burden—we're automating 90% of this. Quarterly updates take 2 minutes. Third, org-wide standards—those still live in linting and ADRs where they belong. These instructions reflect reality so Copilot is helpful NOW. If we want to change patterns, we update the code, then re-run the template. And fourth, drift—we're building GitHub Actions to detect outdated files automatically. This is designed to be low-touch and self-sustaining."
+---
 
-**Time:** 3 minutes
+#### Concern #5: "Why do we need specialized files if we have the monolithic file?"** ⭐ NEW
+
+✅ **Response:** The monolithic file provides comprehensive context for all sessions, but when editing a Java file, you don't need React patterns cluttering Copilot's context. Specialized files provide focused, relevant guidance without noise. Both work together: monolithic for complete understanding + specialized for laser-focused patterns. This eliminates the "React developers seeing Java patterns" problem.
+
+#### 🎤 What to Say:
+> "Let me address the concerns I expect you're thinking about. First, inconsistency—won't 50 different files create chaos? No, because the templates enforce consistency in HOW we generate instructions. We're using the same process, the same structure, the same security rules everywhere. The content differs because it should; Java isn't React. That's precision, not inconsistency. Second, maintenance burden—we're automating 90% of this. Quarterly updates take 5 minutes for both prompts. Third, org-wide standards—those still live in linting and ADRs where they belong. These instructions reflect reality so Copilot is helpful NOW. If we want to change patterns, we update the code, then re-run the templates. Fourth, drift—we're building GitHub Actions to detect outdated files automatically. And fifth, why specialized files? Because the monolithic file provides complete context, but specialized files eliminate noise. When you edit a Java file, you don't want React patterns cluttering Copilot's suggestions. Both work together for comprehensive understanding with laser-focused guidance."
+
+**Time:** 3 minutes ⭐ UPDATED
 
 ---
 
@@ -477,19 +578,34 @@ Define ownership (DevEx maintains template, teams own files)
 ### **SLIDES REMOVED:**
 - ❌ Old Slide 7 (AI Rules Landscape) - Not relevant to solution architects; dilutes focus
 
-### **SLIDES ADDED:**
+### **SLIDES ADDED (Original Version):**
 - ✅ Slide 3: Why org-wide files fail (establishes your key argument)
 - ✅ Slide 5: Prompt template automation (your key differentiator)
 - ✅ Slide 7: Collaboration workflow (demonstrates team ownership)
 - ✅ Slide 9: Technical architecture (shows governance integration)
 - ✅ Slide 12: Objections handling (critical for buy-in)
 
-### **SLIDES REVISED:**
+### **SLIDES ADDED (This Update - Two-Step System):** ⭐ NEW
+- ✅ Slide 5.5: Path-Specific Instructions loading behavior (explains the "magic")
+
+### **SLIDES REVISED (Original Version):**
 - 🔄 Slide 2: Sharper problem statement with concrete consequences
 - 🔄 Slide 4: Emphasis on per-repo solution with evidence examples
-- 🔄 Slide 8: More conservative/evidence-based metrics (or clearly labeled as projected)
+- 🔄 Slide 8: More conservative/evidence-based metrics
 - 🔄 Slide 10: More detailed roadmap with clear phases
 - 🔄 Slide 13: Clear call-to-action instead of vague "future" statement
+
+### **SLIDES UPDATED (This Update - Two-Step System):** ⭐ NEW
+- 🔄 Slide 5: Now shows two-step process (primary + follow-up prompts)
+- 🔄 Slide 7: Added Phase 3 for specialized file generation
+- 🔄 Slide 10: Roadmap includes both prompts in all phases
+- 🔄 Slide 11: Demo shows monolithic + specialized files working together
+- 🔄 Slide 12: Added Concern #5 about why specialized files are needed
+
+### **Impact:**
+- **Total Slides:** 14 (was 13)
+- **Total Time:** 35 minutes + Q&A (was 30 minutes)
+- **Stronger Value Prop:** Eliminates both org-wide problem AND noise problem within repos
 
 ---
 
@@ -497,17 +613,18 @@ Define ownership (DevEx maintains template, teams own files)
 
 ### **Timing Strategy:**
 1. **Slides 1-2 (3 minutes):** Quick setup of the problem
-2. **Slides 3-5 (7 minutes):** Deep dive on WHY per-repo + HOW automation works (core argument)
-3. **Slides 6-7 (4 minutes):** Details on content and workflow
-4. **Slide 8 (2 minutes):** Business case
-5. **Slide 9 (2 minutes):** Technical integration
-6. **Slide 10 (2 minutes):** Execution plan
-7. **Slide 11 (5 minutes):** Demo (the proof)
-8. **Slide 12 (3 minutes):** Objections
-9. **Slide 13 (2 minutes):** Call to action
-10. **Q&A (10 minutes)**
+2. **Slides 3-5 (7 minutes):** Deep dive on WHY per-repo + HOW two-step automation works (core argument) ⭐ UPDATED
+3. **Slide 5.5 (2 minutes):** Explain path-specific loading behavior ⭐ NEW
+4. **Slides 6-7 (4 minutes):** Details on content and workflow
+5. **Slide 8 (2 minutes):** Business case
+6. **Slide 9 (2 minutes):** Technical integration
+7. **Slide 10 (2 minutes):** Execution plan
+8. **Slide 11 (6 minutes):** Demo (the proof - now showing both file types) ⭐ UPDATED
+9. **Slide 12 (3 minutes):** Objections (now 5 concerns) ⭐ UPDATED
+10. **Slide 13 (2 minutes):** Call to action
+11. **Q&A (10 minutes)**
 
-**Total: 30 minutes + 10 minutes Q&A**
+**Total: 35 minutes + 10 minutes Q&A** ⭐ UPDATED
 
 ### **Key Moments to Emphasize:**
 
@@ -515,20 +632,24 @@ Define ownership (DevEx maintains template, teams own files)
 - This is your foundation; if they don't buy this, the rest doesn't matter
 - Use concrete examples: "Imagine a React developer reading Spring Boot patterns..."
 
-**2. Spend 3 minutes on Slide 5** (prompt template automation)
-- This is your differentiator; show HOW this is scalable
-- Emphasize: "2 minutes to run, 90% accurate, team reviews 10%"
+**2. Spend 3 minutes on Slide 5** (two-step automation) ⭐ UPDATED
+- This is your differentiator; show HOW the two-step system works
+- Emphasize: "5 minutes total, automated, eliminates noise problem"
 
-**3. Have the demo ready to go** (Slide 11)
+**3. Spend 2 minutes on Slide 5.5** (loading behavior) ⭐ NEW
+- This explains the "magic" of how specialized files work
+- Use concrete examples: "Edit Java → gets Java patterns, Edit React → gets React patterns"
+
+**4. Have the demo ready to go** (Slide 11)
 - Solution architects trust what they see
-- Practice this multiple times; it should be flawless
-- Have a "before/after" comparison ready
+- Practice showing BOTH monolithic and specialized files
+- Demonstrate switching between Java and React files to show different specialized files loading
 
-**4. Invite objections early**
-- After Slide 6, pause and ask: "What concerns do you have so far?"
+**5. Invite objections early**
+- After Slide 7, pause and ask: "What concerns do you have so far?"
 - This prevents objections from festering until Q&A
 
-**5. End with a question, not a statement**
+**6. End with a question, not a statement**
 - "What would you need to see to approve the pilot?" forces engagement
 - Opens the door for negotiation rather than rejection
 
