@@ -166,7 +166,7 @@ Can't cite actual files from 50 different repositories
 #### **STEP 1: Generate Comprehensive Base (2-3 minutes)**
 ```
 ┌─────────────────────────────────────────────────────────┐
-│ Primary Prompt Template                                 │
+│ copilot-instruction-main-file-generator.md              │
 │ ↓                                                        │
 │ 1. Developer runs primary prompt in VS Code            │
 │ 2. Copilot analyzes entire codebase                    │
@@ -180,7 +180,7 @@ Can't cite actual files from 50 different repositories
 #### **STEP 2: Generate Focused Guidance (2-3 minutes)**
 ```
 ┌─────────────────────────────────────────────────────────┐
-│ Follow-Up Prompt Template                               │
+│ Create-Path-Specific-Copilot-Instructions-V2.md        │
 │ ↓                                                        │
 │ 1. Run follow-up prompt on approved monolithic file    │
 │ 2. Creates specialized .github/instructions/*.md files │
@@ -298,7 +298,7 @@ DTOs, routing conventions, error handling, API client patterns
 
 #### Phase 1: GENERATE Monolithic (Automated - 2 minutes)
 ```
-├── Run primary prompt template in repo
+├── Run copilot-instruction-main-file-generator.md in repo
 ├── Template analyzes codebase
 └── Output: Complete .github/copilot-instructions.md (90% accurate)
 ```
@@ -313,7 +313,7 @@ DTOs, routing conventions, error handling, API client patterns
 
 #### Phase 3: GENERATE Specialized (Automated - 2 minutes) ⭐ NEW
 ```
-├── Run follow-up prompt template
+├── Run Create-Path-Specific-Copilot-Instructions-V2.md
 ├── Creates path-specific .github/instructions/*.md files
 │   ├── backend.instructions.md
 │   ├── frontend.instructions.md
@@ -425,8 +425,8 @@ All team members access best practices via AI assistant
 ## Q4 2024 - PILOT (Weeks 1-8)
 ```
 ├── Select 3-5 high-priority repos (mix of Java, React, Python)
-├── Run PRIMARY prompt: Generate monolithic files
-├── Run FOLLOW-UP prompt: Generate specialized files ⭐ NEW
+├── Run copilot-instruction-main-file-generator.md: Generate monolithic files
+├── Run Create-Path-Specific-Copilot-Instructions-V2.md: Generate specialized files ⭐ NEW
 ├── Measure impact of two-step approach ⭐ NEW
 ├── Gather developer feedback via surveys
 ├── Measure PR metrics (review time, revision cycles, noise reduction) ⭐ UPDATED
@@ -458,7 +458,7 @@ All team members access best practices via AI assistant
 - ✅ Noise reduction (specialized files eliminate irrelevant patterns) ⭐ NEW
 
 #### 🎤 What to Say:
-> "Here's the rollout plan. Q4, we pilot with 3-5 repositories to validate the TWO-STEP approach. We run the primary prompt to generate monolithic files, then the follow-up prompt to create specialized files. We're measuring not just PR review time and satisfaction, but also noise reduction—do React developers appreciate not seeing Java patterns? Q1, we roll out to all repositories. We train teams on the two-step workflow: run primary, review, run follow-up, commit both. We document when and how to use each prompt. Q2, we automate detection for BOTH file types—GitHub Actions will detect when either monolithic or specialized files are outdated. This is incremental, data-driven, and low-risk. We're validating the advanced system first, then scaling."
+> "Here's the rollout plan. Q4, we pilot with 3-5 repositories to validate the TWO-STEP approach. We run copilot-instruction-main-file-generator.md to generate monolithic files, then Create-Path-Specific-Copilot-Instructions-V2.md to create specialized files. We're measuring not just PR review time and satisfaction, but also noise reduction—do React developers appreciate not seeing Java patterns? Q1, we roll out to all repositories. We train teams on the two-step workflow: run primary prompt, review, run follow-up prompt, commit both. We document when and how to use each prompt. Q2, we automate detection for BOTH file types—GitHub Actions will detect when either monolithic or specialized files are outdated. This is incremental, data-driven, and low-risk. We're validating the advanced system first, then scaling."
 
 **Time:** 2 minutes
 
@@ -564,7 +564,10 @@ Define ownership (DevEx maintains template, teams own files)
 #### Questions? Concerns? Let's discuss.
 
 **Contact:** [Your name/team]
-**Resources:** [Link to prompt template, pilot plan]
+**Resources:**
+- Primary Prompt: `copilot-instruction-main-file-generator.md`
+- Follow-Up Prompt: `Create-Path-Specific-Copilot-Instructions-V2.md`
+- Pilot Plan: [Link to pilot plan document]
 
 #### 🎤 What to Say:
 > "Here's what we need from you as solution architects. First, approve the pilot—let us run this in 3-5 repositories and prove the value with real data. Second, review the prompt template to ensure we're capturing architectural patterns correctly—we want your expertise here. Third, agree on how we measure success—what KPIs matter most to you? And fourth, validate the governance model—DevEx maintains the template, teams own their instruction files. What questions do you have? What concerns haven't I addressed? What would you need to see to approve moving forward with the pilot?"
