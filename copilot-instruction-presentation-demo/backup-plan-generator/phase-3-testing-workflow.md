@@ -179,17 +179,26 @@ Use **#findTestFiles** and **#codebase** to find:
 
 ---
 
-## Validation Checklist
+<!-- End of Phase 3 output -->
 
-Before saving:
+---
+
+## ⚠️ IMPORTANT OUTPUT INSTRUCTIONS
+
+**What to output:**
+- ONLY the markdown sections above (Testing Conventions, Development Workflow)
+- Include the evidence sections
+
+**What NOT to output:**
+- ❌ This validation checklist
+- ❌ These output instructions
+- ❌ Any meta-commentary about the analysis
+- ❌ "SAVE OUTPUT", "NEXT STEP", or completion messages
+
+**Validation checklist (for your reference, DO NOT include in output):**
 - [ ] Test framework names match what's in package.json/dependencies
 - [ ] Test file locations match actual project structure
 - [ ] Example test structure is from actual test file (cited)
 - [ ] CI/CD steps match actual workflow file
 - [ ] Linter/formatter configs are verified to exist
 - [ ] All evidence files are cited
-- [ ] Content is appended to existing `.github/copilot-instructions.md`
-
-**SAVE OUTPUT TO:** `.github/copilot-instructions.md` (appending to existing file)
-
-**NEXT STEP:** Tell user to start a **new chat session** and run `phase-4-finalize-polish.md` to add security, framework-specific patterns, and final polish.

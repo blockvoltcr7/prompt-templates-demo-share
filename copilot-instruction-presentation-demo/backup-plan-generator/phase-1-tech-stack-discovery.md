@@ -116,17 +116,27 @@ scripts/
 
 ---
 
-## Validation Checklist
+<!-- End of Phase 1 output -->
 
-Before saving:
+---
+
+## ⚠️ IMPORTANT OUTPUT INSTRUCTIONS
+
+**What to output:**
+- ONLY the markdown sections above (Project Overview, Technology Stack, Repository Structure)
+- Include the evidence sections
+
+**What NOT to output:**
+- ❌ This validation checklist
+- ❌ These output instructions
+- ❌ Any meta-commentary about the analysis
+- ❌ "SAVE OUTPUT AS" or "NEXT STEP" instructions
+
+**Validation checklist (for your reference, DO NOT include in output):**
 - [ ] All versions come from actual config files (cited with evidence)
 - [ ] No technologies listed that don't exist in the repo
 - [ ] Tech stack table has 5-12 rows (not exhaustive, focus on primary tech)
 - [ ] Evidence files are listed with specific paths
 - [ ] Project overview is 2-4 lines maximum
 - [ ] Repository structure shows actual directory names from this repo
-
-**SAVE OUTPUT AS:** `.github/copilot-instructions.md`
-
-**NEXT STEP:** Tell user to start a new chat session and run `phase-2-patterns-architecture.md` to analyze code patterns and architecture.
 

@@ -232,56 +232,28 @@ Use **#search** and **#codebase** to find:
 
 ---
 
-## Final Polish Tasks
-
-1. **Review the entire `.github/copilot-instructions.md` file**
-2. **Verify:**
-   - [ ] All sections flow logically
-   - [ ] No duplicated content
-   - [ ] All evidence citations are valid
-   - [ ] No placeholder text remains
-   - [ ] Headers use consistent formatting
-   - [ ] Code examples use correct language tags
-3. **Add missing sections** if any gaps exist
-4. **Remove any generic advice** that doesn't match the actual codebase
+<!-- End of Phase 4 output -->
 
 ---
 
-## Validation Checklist
+## ⚠️ IMPORTANT OUTPUT INSTRUCTIONS
 
-Before finalizing:
+**What to output:**
+- ONLY the markdown sections above (Security & Best Practices, Framework-Specific Patterns, Files Analyzed)
+- Include the evidence sections
+
+**What NOT to output:**
+- ❌ This validation checklist
+- ❌ These output instructions
+- ❌ Any meta-commentary about the analysis
+- ❌ "SAVE OUTPUT", "FINAL OUTPUT", or completion messages
+- ❌ "Post-Completion" instructions
+- ❌ "Tell the user" messages
+
+**Validation checklist (for your reference, DO NOT include in output):**
 - [ ] Framework-specific section matches the actual framework used
 - [ ] Security patterns are based on real implementations (not generic advice)
 - [ ] All code examples are from actual files (cited)
-
-
-**SAVE OUTPUT TO:** `.github/copilot-instructions.md` (appending to existing file)
-
-**FINAL OUTPUT:** `.github/copilot-instructions.md` is complete and ready to use!
-
----
-
-## Post-Completion
-
-🎉 **ALL 4 PHASES COMPLETE!**
-
-Tell the user:
-
-> **Your `.github/copilot-instructions.md` file is now complete!**
->
-> This file contains:
-> - ✅ Technology stack with exact versions
-> - ✅ Architecture guidelines and patterns
-> - ✅ Coding standards with examples
-> - ✅ Testing conventions
-> - ✅ Development workflow
-> - ✅ Security best practices
-> - ✅ Framework-specific patterns
->
-> **Next Steps:**
-> 1. Review `.github/copilot-instructions.md` for accuracy
-> 2. Test it with GitHub Copilot by asking it to generate code
-> 3. Refine sections based on Copilot's output quality
-> 4. Keep it updated as your codebase evolves
->
-> **You can now close this chat session.** Your Copilot instructions are ready!
+- [ ] All sections flow logically
+- [ ] No duplicated content
+- [ ] No placeholder text remains

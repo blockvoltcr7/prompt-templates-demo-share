@@ -81,7 +81,7 @@ Find examples of what NOT to do:
 
 ## Output Instructions
 
-**APPEND** the following sections to `.github/copilot-instructions.md`:
+Generate ONLY the following sections and output them directly:
 
 ```markdown
 
@@ -97,13 +97,14 @@ Find examples of what NOT to do:
 - [Module boundaries and responsibilities]
 - [Cross-module communication patterns]
 
-**Example Structure:**
-```
-[Show actual directory structure from src/]
-```
+**Dependency Flow:**
+- [Which layers/modules depend on which]
+- [Example: Controllers → Services → Repositories]
 
 **Evidence:**
 - [3-5 key files demonstrating architecture]
+
+**NOTE:** Do NOT generate directory structure tree here - Phase 1 already created the Repository Structure section.
 
 ---
 
@@ -159,16 +160,26 @@ Find examples of what NOT to do:
 
 ---
 
-## Validation Checklist
+<!-- End of Phase 2 output -->
 
-Before saving:
+---
+
+## ⚠️ IMPORTANT OUTPUT INSTRUCTIONS
+
+**What to output:**
+- ONLY the markdown sections above (Architecture Guidelines, Coding Standards)
+- Include the evidence sections
+
+**What NOT to output:**
+- ❌ This validation checklist
+- ❌ These output instructions
+- ❌ Any meta-commentary about the analysis
+- ❌ "SAVE OUTPUT", "NEXT STEP", or completion messages
+- ❌ Directory structure trees (Phase 1 already created that)
+
+**Validation checklist (for your reference, DO NOT include in output):**
 - [ ] Architecture section describes ACTUAL layers found in code
 - [ ] Naming conventions include real examples from the repo
 - [ ] Error handling pattern includes code example from actual file
 - [ ] All patterns cite evidence files
 - [ ] NEVER section lists real issues to avoid (not generic advice)
-- [ ] Content is appended to existing `.github/copilot-instructions.md`
-
-**SAVE OUTPUT TO:** `.github/copilot-instructions.md` (appending to existing file)
-
-**NEXT STEP:** Tell user to start a **new chat session** and run `phase-3-testing-workflow.md` to analyze testing and workflow patterns.
