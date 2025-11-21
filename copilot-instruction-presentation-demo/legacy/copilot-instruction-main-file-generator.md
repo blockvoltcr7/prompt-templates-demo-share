@@ -23,30 +23,29 @@ You are a Senior DevOps Engineer & GitHub Copilot Configuration specialist. Anal
 ## Hard Rules (Apply Throughout)
 
 1. **No Invention**
-Only include technologies, versions, configs, and patterns that you **verified exist** in this repo.
-2. **Cite Evidence**
-Every major section must list the files (and when possible, line ranges) you referenced.
-Format: `(path/to/file.ext:45-67)` on `(path/to/file.ext)` if line ranges aren’t critical.
+   - Only include technologies, versions, configs, and patterns that you **verified exist** in this repo
+   - If uncertain about a pattern, state it explicitly or omit it
+
+2. **Be Prescriptive, Not Documentary**
+   - Write clear instructions for how to write code (e.g., "Always use PascalCase for components")
+   - Include code examples showing the pattern to follow
+   - Focus on actionable guidance, not just describing what exists
+
 3. **Respect Exclusions**
-Ignore: `node_modules/`, `build/`, `dist/`, `target/`, `.gradle/`, `.git/`, `vendor`, large logs/binaries, generated reports, `.next/`, `__pycache__/`
-4. **Prefer Truth Sources**
-Priority order for evidence:
-    1. Build files (`package.json`, `pom.xml`, `build.gradle`, `requirements.txt`, `go.mod`)
-    2. Lockfiles (`package-lock.json`, `pom.xml` resolved deps, `poetry.lock`, `go.sum`)
-    3. Source code patterns
-    4. Infrastructure as Code (`Dockerfile`, `docker-compose.yml`, `helm/`, `terraform/`)
-    5. Application configs (`application*.yml`, `config/`, `.env.example`)
-    6. CI/CD configs (`.github/workflows/*`, `Jenkinsfile`, `.gitlab-ci.yml`)
-5. **Security Defaults**
-- Never suggest hardcoded secrets
-- Use config/env vars for all credentials
-- No plaintext passwords
-- No `Thread.sleep` in tests (prefer explicit waits/polling)
-- Follow least privilege principles
-- Always validate input, sanitize output
-1. **Evidence Quality Over Quantity**
-- Inline citations for critical patterns
-- Summary evidence bullets at section end
+   - Ignore: `node_modules/`, `build/`, `dist/`, `target/`, `.gradle/`, `.git/`, `vendor`, large logs/binaries, generated reports, `.next/`, `__pycache__/`
+
+4. **Security First**
+   - Never suggest hardcoded secrets
+   - Use config/env vars for all credentials
+   - No plaintext passwords
+   - No `Thread.sleep` in tests (prefer explicit waits/polling)
+   - Follow least privilege principles
+   - Always validate input, sanitize output
+
+5. **Include Real Code Examples**
+   - Every major pattern should have a 5-15 line code example
+   - Examples should be taken from actual files in the repo
+   - Show the preferred way to implement the pattern
 
 ---
 
@@ -87,20 +86,15 @@ Priority order for evidence:
 
 **Actions:**
 
-1. Record the current UTC timestamp
-2. Identify which Copilot workspace tools are enabled/available
-3. Map top-level directories and understand module structure
-4. Determine project type (monorepo, single app, library, full-stack, etc.)
+1. Map top-level directories and understand module structure
+2. Determine project type (monorepo, single app, library, full-stack, etc.)
 
 **Output:**
 
 - High-level repository structure
-- Evidence list: key files read with their purpose
+- Project type identification
 
-**Handle Edge Cases:**
-
-- If patterns are inconsistent, note this and use “Precedence Rules” later
-- If no clear structure exists, state this explicitly
+**Note:** If patterns are inconsistent, document the preferred approach in "Precedence Rules"
 
 ---
 
@@ -158,8 +152,6 @@ Priority order for evidence:
 **Precedence Rules (if mixed styles exist):**
 State which pattern takes precedence when multiple styles are detected.
 
-**Evidence:** List files and line ranges that demonstrate each pattern.
-
 ---
 
 ### Phase 3 - Testing Strategy
@@ -181,8 +173,6 @@ State which pattern takes precedence when multiple styles are detected.
 - Parallel execution settings
 - Coverage requirements/thresholds
 - Reporting (Serenity, Allure, coverage reports)
-
-**Evidence:** Representative test files and test configs.
 
 ---
 
@@ -214,8 +204,6 @@ State which pattern takes precedence when multiple styles are detected.
 - Cloud SDK usage (AWS, Azure, GCP)
 - Infrastructure as Code patterns
 
-**Evidence:** CI/CD files, Dockerfiles, deployment configs.
-
 ---
 
 ### Phase 5 - Security & Best Practices
@@ -242,8 +230,6 @@ State which pattern takes precedence when multiple styles are detected.
 - SQL injection vulnerabilities
 - Missing timeout/retry logic for external calls
 
-**Evidence:** Security configs, auth middleware, validation examples.
-
 ---
 
 ### Phase 6 - Generate Final Output
@@ -268,8 +254,6 @@ Create `.github/copilot-instructions.md` with these sections **in this order:**
 
 Brief description of what the system does, key modules/services, and primary use case.
 
-**Evidence:** `README.md`, root-level docs.
-
 ---
 
 ### 3. Technology Stack (Exact Versions)
@@ -286,210 +270,260 @@ Table format:
 
 ```
 
-**Evidence:**
-
-- `package.json:12-45`
-- `tsconfig.json:2-10`
-
 ---
 
 ### 4. Architecture Guidelines
 
+Describe how code should be organized and how modules should interact.
+
 ```markdown
-- **Layering:** [Describe layers and their responsibilities]
-- **Module Structure:** [Directory organization]
-- **Dependency Flow:** [Which layers depend on which]
-- **Cross-Module Communication:** [APIs, events, shared types]
-- **Precedence Rules:** [If mixed patterns exist, state which wins]
+**Layering:**
+- [Describe layers and their responsibilities]
+- [Example: Presentation → Business Logic → Data Access]
+
+**Module Structure:**
+- [Directory organization pattern]
+- [Example: Feature-based, domain-driven, etc.]
+
+**Dependency Flow:**
+- [Which layers depend on which]
+- [Example: Controllers depend on Services, Services depend on Repositories]
+
+**Cross-Module Communication:**
+- [How modules interact: APIs, events, shared types]
+
+**Precedence Rules (if needed):**
+- [If mixed patterns exist, state which pattern to follow]
 
 ```
 
-**ASCII Diagram (if useful):**
-
+**Optional - Include ASCII diagram if helpful for clarity:**
 ```
 [Example of module relationships]
-
 ```
-
-**Evidence:** [List files demonstrating architecture]
 
 ---
 
 ### 5. General Coding Standards
 
+Prescribe how to write code in this project with clear rules and examples.
+
 ```markdown
 **Naming Conventions:**
-- Files: [pattern]
-- Classes/Components: [pattern]
-- Functions: [pattern]
-- Variables: [pattern]
-- Constants: [pattern]
+- Files: [pattern with example: `user-service.ts`, `UserService.java`]
+- Classes/Components: [pattern with example: `UserService`, `LoginButton`]
+- Functions: [pattern with example: `getUserById`, `handleSubmit`]
+- Variables: [pattern with example: `userData`, `isLoading`]
+- Constants: [pattern with example: `MAX_RETRIES`, `API_BASE_URL`]
 
-**Package/Directory Structure:**
-- [Standard organization]
+**Directory Structure:**
+- [Show the standard organization]
+- [Example: src/features/, src/lib/, src/components/]
 
 **Error Handling:**
-- [Strategy for errors, logging patterns]
+Always wrap risky operations in proper error handling:
 
-**Configuration Patterns:**
-- [How config is managed]
+```[language]
+// Example from codebase:
+[5-15 line code example showing error handling pattern]
+```
 
-**Performance Considerations:**
-- [Any caching, optimization patterns]
+**Configuration Management:**
+- [How to access config values]
+- [Example: process.env.API_KEY, config.get('api.key')]
+- Always use environment variables for secrets
 
 **NEVER Do:**
 - ❌ Hardcode secrets or credentials
 - ❌ Use `Thread.sleep` in tests (use explicit waits)
-- ❌ Use brittle selectors without justification
-- ❌ Use raw `System.out.println` / `console.log` in production
-- ❌ [Other project-specific anti-patterns]
+- ❌ Use raw `console.log` / `System.out.println` in production code
+- ❌ [Add other project-specific anti-patterns found]
 
 ```
-
-**Evidence:** [Files demonstrating standards]
 
 ---
 
 ### 6. Framework-Specific Patterns
 
-**[For Backend: Spring Boot / Django / Express / etc.]**
+Provide clear patterns with code examples for the specific framework used.
+
+**[For Backend Projects: Spring Boot / Django / Express / FastAPI / etc.]**
 
 ```markdown
-- **Routing:** [Convention for defining endpoints]
-- **Controllers:** [Pattern and organization]
-- **Services:** [Business logic layer patterns]
-- **Repositories/DAOs:** [Data access patterns]
-- **DTOs/Models:** [Data transfer objects]
-- **Dependency Injection:** [How DI is used]
-- **Exception Handling:** [Global handlers, custom exceptions]
+**Routing:**
+[How to define endpoints - show example]
+
+**Controllers/Handlers:**
+[Pattern for request handling - show example]
+
+**Services:**
+[Business logic organization - show example]
+
+**Data Access:**
+[Repository/DAO pattern - show example]
+
+**Dependency Injection:**
+[How to inject dependencies - show example]
+
+**Example Controller/Route:**
+```[language]
+[10-20 line example from actual codebase]
+```
 
 ```
 
-**[For Frontend: React / Vue / Angular / etc.]**
+**[For Frontend Projects: React / Vue / Angular / Svelte / etc.]**
 
 ```markdown
-- **Component Structure:** [File organization, props patterns]
-- **State Management:** [Redux/Zustand/Context patterns]
-- **Styling:** [CSS modules/Tailwind/styled-components]
-- **API Calls:** [fetch/axios/React Query patterns]
-- **Forms:** [Validation, submission patterns]
-- **Routing:** [React Router patterns]
+**Component Structure:**
+Always structure components as follows:
 
+```[language]
+[10-20 line component example from actual codebase]
 ```
 
-**Evidence:** [Representative files]
+**State Management:**
+- [Tool used: Redux, Zustand, Context, Pinia, etc.]
+- [Pattern for accessing state]
+- [Pattern for updating state]
+
+**Styling:**
+- [Approach: CSS Modules, Tailwind, styled-components, etc.]
+- [Example of how to style components]
+
+**API Calls:**
+- [Library: fetch, axios, etc.]
+- [Data fetching pattern: React Query, SWR, custom hooks]
+- Always handle loading and error states
+
+**Forms:**
+- [Library: React Hook Form, Formik, etc.]
+- [Validation approach: Zod, Yup, etc.]
+
+```
 
 ---
 
 ### 7. Security & Best Practices
 
+Prescribe security patterns that must be followed.
+
 ```markdown
 **Authentication & Authorization:**
-- [How auth is implemented]
+- [Method: JWT, OAuth, session-based, etc.]
+- [How to implement auth in new endpoints/components]
+- [Example of protected route/endpoint]
 
 **Secret Management:**
-- [Environment variables, vault, etc.]
+- ALWAYS use environment variables for secrets
+- NEVER commit .env files
+- [How secrets are accessed: process.env, config service, etc.]
 
 **Input Validation:**
-- [Validation library and patterns]
+- [Validation library: Zod, Joi, class-validator, etc.]
+- Always validate user input at entry points
 
-**API Security:**
-- [CORS, rate limiting, headers]
-
-**Dependency Management:**
-- [Update policy, vulnerability scanning]
-
-**Secure Defaults:**
-- [HTTPS, secure cookies, CSP, etc.]
-
+```[language]
+[Example validation schema from codebase]
 ```
 
-**Evidence:** [Security middleware, config files]
+**API Security:**
+- [CORS configuration]
+- [Rate limiting approach]
+- [Security headers: helmet, CSP, etc.]
+
+**Required Security Practices:**
+- ✅ Validate all user input
+- ✅ Use parameterized queries (prevent SQL injection)
+- ✅ Sanitize output (prevent XSS)
+- ✅ Use HTTPS in production
+- ✅ Keep dependencies updated
+
+```
 
 ---
 
 ### 8. Testing Conventions
 
+Prescribe how to write tests with clear patterns and examples.
+
 ```markdown
 **Test Structure:**
-- Unit tests: [location, naming, framework]
-- Integration tests: [approach]
-- E2E tests: [framework, patterns]
+- Unit tests: [location and naming pattern]
+- Integration tests: [location and framework]
+- E2E tests: [framework and location]
 
-**Assertion Style:**
-- [expect/assert/should patterns]
+**Framework:** [Jest, Vitest, JUnit, PyTest, etc.]
 
-**Mocking/Stubbing:**
-- [Library and patterns]
-
-**Test Data:**
-- [Fixtures, factories, builders]
-
-**Parallelization:**
-- [Settings and approach]
-
-**Coverage:**
-- [Thresholds, excluded paths]
-
-**Reporting:**
-- [Where reports go, formats]
-
+**Example Test Pattern:**
+```[language]
+[10-20 line test example from actual codebase showing:
+ - Test structure (describe/it, test(), etc.)
+ - Assertion style
+ - Setup/teardown
+ - Mocking approach]
 ```
 
-**Evidence:** [Test files and configs]
+**Mocking:**
+- [Library: Jest mocks, Mockito, unittest.mock, etc.]
+- [When to mock vs use real implementations]
+
+**Test Data:**
+- [Approach: fixtures, factories, builders]
+- [Where test data lives]
+
+**Coverage Requirements:**
+- [Minimum threshold if configured]
+- [What to exclude from coverage]
+
+**Testing Rules:**
+- ✅ Test business logic, not implementation details
+- ✅ Use descriptive test names
+- ✅ Keep tests isolated and independent
+- ❌ Never use `Thread.sleep` or arbitrary timeouts
+- ❌ Don't test framework/library code
+
+```
 
 ---
 
 ### 9. Development Workflow
 
+Describe the development process and tooling.
+
 ```markdown
 **Code Formatting:**
-- [Prettier/ESLint/etc. configs]
+- [Tool: Prettier, Black, gofmt, etc.]
+- [Key settings: indent size, quotes, line length]
 
 **Linting:**
-- [Rules and configs]
+- [Tool: ESLint, Checkstyle, Pylint, etc.]
+- [Major rules or preset used]
 
 **Pre-commit Hooks:**
-- [Husky/lint-staged setup]
+- [Tool: Husky, pre-commit, etc.]
+- [What runs: format, lint, type-check, tests]
 
 **CI/CD Pipeline:**
-- [Steps: build, test, lint, deploy]
-- [Quality gates]
-- [Environments]
+Steps that run on every commit:
+1. [Step 1: e.g., Install dependencies]
+2. [Step 2: e.g., Run linter]
+3. [Step 3: e.g., Run tests]
+4. [Step 4: e.g., Build]
+5. [Step 5: e.g., Deploy (if applicable)]
 
-**Versioning & Releases:**
-- [Semantic versioning, changelog, tagging]
+**Quality Gates:**
+- [What must pass: tests, coverage, linting, etc.]
 
-**Container Workflow:**
-- [Docker build, compose, K8s/Helm]
+**Deployment:**
+- [Where: Vercel, AWS, Docker registry, etc.]
+- [When: on push to main, manual, on tag]
 
-**Observability:**
-- [Logging, metrics, tracing setup]
-
-```
-
-**Evidence:** [CI files, configs, scripts]
-
----
-
-### 10. Evidence References
-
-```markdown
-**Configuration Files Analyzed:**
-- [List all config files examined with their purpose]
-
-**Source Code Samples:**
-- [Key source files that informed patterns]
-
-**Test Examples:**
-- [Test files reviewed]
-
-**Infrastructure/Deployment:**
-- [Docker, K8s, CI/CD files]
+**Logging:**
+- [Library: winston, pino, log4j, etc.]
+- [Pattern for logging]
 
 ```
-
----
 
 ## **BEGIN ANALYSIS NOW**
 
@@ -497,251 +531,15 @@ Table format:
 
 ## Final Reminders
 
-- Every claim must be backed by actual files in the repo
-- Never invent versions, configs, or patterns
-- If uncertain, state it explicitly
-- Focus on what exists, not what’s ideal
-- Use workspace tools efficiently - start with #codebase
-- Cite evidence inline and summarize at section ends
-- This template ensures Copilot generates code that matches your actual repository patterns, not generic best practices
-
----
-
-## Example Final Output Structure
-
-```markdown
-# GitHub Copilot Instructions
-
-> Auto-generated on [TIMESTAMP] by analyzing this repository
-> **Role:** Senior Software Engineer
-
-## Project Overview
-
-[2-5 line description of the system]
-
-**Evidence:** `README.md`, root-level docs
-
----
-
-## Technology Stack
-
-| Category | Technology | Version | Purpose |
-|----------|------------|---------|---------|
-| Language | TypeScript | 5.3.x | Primary language |
-| Runtime | Node.js | 20.x | Execution environment |
-| Framework | React | 18.x | UI framework |
-| Build | Vite | 5.x | Build tool |
-| ... | ... | ... | ... |
-
-**Evidence:**
-- `package.json:12-45`
-- `tsconfig.json:2-10`
-
----
-
-## Architecture Guidelines
-
-**Layering:**
-- Presentation layer (React components)
-- Business logic layer (hooks, services)
-- Data access layer (API clients)
-
-**Module Structure:**
-- Feature-based organization under `/src/features`
-- Shared utilities in `/src/lib`
-- Type definitions in `/src/types`
-
-**Dependency Flow:**
-Components → Hooks → Services → API Clients
-
-**Cross-Module Communication:**
-- Shared types via TypeScript interfaces
-- Event bus for decoupled features
-- Context API for global state
-
-**Evidence:** `src/` directory structure, import patterns across codebase
-
----
-
-## General Coding Standards
-
-**Naming Conventions:**
-- Files: `kebab-case.tsx`
-- Components: `PascalCase`
-- Functions: `camelCase`
-- Variables: `camelCase`
-- Constants: `UPPER_SNAKE_CASE`
-
-**Package/Directory Structure:**
-
-```
-
-src/
-features/
-feature-name/
-components/
-hooks/
-services/
-lib/
-types/
-
-```
-**Error Handling:**
-- Try-catch for async operations
-- Error boundaries for component errors
-- Custom error classes for domain errors
-
-**Configuration Patterns:**
-- Environment variables via `.env` files
-- Type-safe config via TypeScript
-
-**NEVER Do:**
-- ❌ Hardcode API keys or secrets
-- ❌ Use `console.log` in production code
-- ❌ Bypass TypeScript type checking with `any`
-
-**Evidence:**
-- `src/features/auth/components/LoginForm.tsx:45-67`
-- `src/lib/config.ts:1-20`
-
----
-
-## Framework-Specific Patterns
-
-### React Patterns
-
-**Component Structure:**
-- Functional components with hooks
-- Props interfaces defined inline or in separate file
-- Export components as named exports
-
-**State Management:**
-- Zustand for global state
-- React Query for server state
-- useState for local component state
-
-**Styling:**
-- Tailwind utility classes
-- CSS modules for complex components
-
-**API Calls:**
-- React Query hooks for data fetching
-- Axios for HTTP client
-
-**Forms:**
-- React Hook Form for form handling
-- Zod for validation
-
-**Evidence:**
-- `src/features/dashboard/components/Dashboard.tsx`
-- `src/lib/api/client.ts`
-
----
-
-## Security & Best Practices
-
-**Authentication & Authorization:**
-- JWT-based authentication
-- Token stored in httpOnly cookies
-- Role-based access control
-
-**Secret Management:**
-- Environment variables for all secrets
-- Never commit `.env` files
-
-**Input Validation:**
-- Zod schemas for runtime validation
-- TypeScript for compile-time type safety
-
-**API Security:**
-- CORS configured for specific origins
-- Rate limiting on API routes
-- CSRF protection enabled
-
-**Evidence:**
-- `src/middleware/auth.ts`
-- `.env.example`
-
----
-
-## Testing Conventions
-
-**Test Structure:**
-- Unit tests: `*.test.ts` alongside source files
-- Integration tests: `tests/integration/`
-- E2E tests: `tests/e2e/` using Playwright
-
-**Assertion Style:**
-- Vitest with `expect` assertions
-
-**Mocking/Stubbing:**
-- Vitest mocks for modules
-- MSW for API mocking
-
-**Test Data:**
-- Factory functions in `tests/factories/`
-
-**Coverage:**
-- Minimum 80% coverage required
-- Exclude `*.config.ts` files
-
-**Evidence:**
-- `src/features/auth/services/auth.test.ts`
-- `vitest.config.ts`
-
----
-
-## Development Workflow
-
-**Code Formatting:**
-- Prettier with 2-space indents
-- Single quotes for strings
-
-**Linting:**
-- ESLint with TypeScript rules
-- Import ordering via eslint-plugin-import
-
-**Pre-commit Hooks:**
-- Husky + lint-staged
-- Runs: lint, format, type-check
-
-**CI/CD Pipeline:**
-- GitHub Actions workflow
-- Steps: install, lint, test, build
-- Deploy to Vercel on main branch
-
-**Versioning:**
-- Semantic versioning
-- Conventional commits for changelog
-
-**Evidence:**
-- `.github/workflows/ci.yml`
-- `package.json` scripts
-
----
-
-## Evidence References
-
-**Configuration Files Analyzed:**
-- `package.json` - Dependencies and scripts
-- `tsconfig.json` - TypeScript configuration
-- `vite.config.ts` - Build configuration
-- `.eslintrc.json` - Linting rules
-- `.github/workflows/ci.yml` - CI/CD pipeline
-
-**Source Code Samples:**
-- `src/features/auth/` - Authentication patterns
-- `src/lib/api/` - API client patterns
-- `src/components/ui/` - Shared component patterns
-
-**Test Examples:**
-- `src/features/auth/services/auth.test.ts`
-- `tests/e2e/login.spec.ts`
-
-**Infrastructure:**
-- `Dockerfile` - Container build process
-- `vercel.json` - Deployment configuration
-
-```
+**Key Principles:**
+- Write **prescriptive instructions**, not documentary descriptions
+- Include **real code examples** (5-20 lines) for every major pattern
+- Focus on **how to write new code**, not just what currently exists
+- Never invent versions, configs, or patterns - only use what you verify
+- If uncertain about a pattern, state it explicitly or omit it
+- Make it actionable: "Always do X" not "The codebase does X"
+
+**Goal:**
+Create instructions that make GitHub Copilot generate code that perfectly matches the project's patterns and conventions.
 
 ---

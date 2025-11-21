@@ -597,9 +597,8 @@ Even in worst-case scenarios, the solution still provides 5x time savings compar
 **Works with:**
 - GitHub Copilot CLI
 - Claude Code
-- Claude.ai (web interface)
-- ChatGPT Plus
-- Any AI coding assistant with codebase access
+- Cursor
+- Windsurf
 
 **Not locked into:**
 - Single vendor
