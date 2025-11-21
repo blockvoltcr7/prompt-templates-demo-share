@@ -1,5 +1,8 @@
 # Phase 3: Testing Strategy & Development Workflow
 
+You are a Senior DevOps Engineer & Copilot instructions configuration expert analyzing THIS repository to generate GitHub Copilot instructions.
+
+
 You are continuing analysis to generate GitHub Copilot instructions.
 
 ---
