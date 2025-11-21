@@ -3,9 +3,8 @@
 
 **Reducing Manual Configuration from 6-8 Hours to 35-45 Minutes**
 
-Presenter: [Your Name]
-Date: [Date]
-Duration: 30 minutes
+Presenter: Sami Sabir-Idrissi
+Date: 2025-11-21
 
 ---
 
@@ -14,8 +13,8 @@ Duration: 30 minutes
 ## Phase-Based GitHub Copilot Instructions
 ### Reducing Manual Configuration from 6-8 Hours to 35-45 Minutes
 
-**Presented by:** [Your Name]
-**Date:** [Presentation Date]
+**Presented by:** Sami Sabir-Idrissi
+**Date:** 2025-11-21
 **For:** Solution Architects Review
 
 ---
@@ -87,14 +86,15 @@ Duration: 30 minutes
 # SLIDE 4: The Legacy Single-Prompt Failure
 
 ## Why Single-Prompt Generators Fail
-### The 70% Failure Rate
+### The 70% Failure Rate and LLM Cognitive Overload risks 
 
 **Technical Failure Modes:**
 
+Three Problems I noticed with Single-Prompt Approach:
 ```
 Single 750-line Prompt:
 ├─ Problem 1: Context Overflow
-│   → Hits token limits mid-generation
+│   → Hits token limits mid to end of the generation
 │
 ├─ Problem 2: All-or-Nothing
 │   → Failure means starting completely over
@@ -108,47 +108,21 @@ Single 750-line Prompt:
 **Why Previous Automation Failed:**
 - Monolithic approach fundamentally flawed
 - AI limitations can't be solved with better prompting alone
-- Need architectural solution
+- Model loses context and focus and drops important details
 
 ---
 
 **SPEAKER NOTES:**
 - We tried single large prompts before—they don't work reliably
-- The problem isn't the prompt quality, it's the approach
-- 70% failure rate makes automation unreliable
+- The problem isn't the prompt quality, it's the approach and context window limits
+- AI can't handle that much information in one go
+- Leads to inconsistent generations between repos
 - This is why we developed the phase-based architecture
 
 ---
 
-# SLIDE 5: The Business Impact
 
-## Cost of Inaction
-### What We're Losing Without Custom Instructions
-
-**Per Repository Annual Costs:**
-
-| Cost Driver | Annual Impact |
-|------------|---------------|
-| Code review inefficiency | $5,000-$8,000 |
-| Onboarding overhead (per new dev) | $3,000-$5,000 |
-| Technical debt accumulation | $2,000-$4,000 |
-| **Total per repository** | **$10,000-$17,000** |
-
-**Organization-Wide (50 Repositories):**
-- **Total annual waste: $500,000-$850,000**
-- Developer frustration: Not quantifiable but significant
-
----
-
-**SPEAKER NOTES:**
-- This isn't just about saving time creating documentation
-- It's about unlocking productivity gains across the entire organization
-- Every repository without instructions is costing us money
-- ROI case writes itself when you look at these numbers
-
----
-
-# SLIDE 6: Introducing the Phase-Based Architecture
+# SLIDE 5: The Phase-Based Architecture
 
 ## The Solution
 ### 4-Phase Sequential Execution with Session Isolation
@@ -170,6 +144,10 @@ Session 1      Session 2      Session 3      Session 4
      └────────────┴─────────────┴─────────────┘
               .github/copilot-instructions.md
 ```
+
+**Prompt Engineering:**
+- Prompt Chaining (Sequential Task Decomposition)
+- Chain-of-Thought & Structured Prompting
 
 **Key Innovation:** Session Isolation
 - Each phase runs in fresh context
@@ -195,7 +173,7 @@ Session 1      Session 2      Session 3      Session 4
 ```
 Phase 1: 500 tokens + 400 output = 900 in memory
 Phase 2: 500 + 900 context + 400 = 1,800 in memory
-Phase 3: 500 + 1,800 context + 400 = 2,700 OVERFLOW ❌
+Phase 3: 500 + 1,800 context + 400 = 2,700 or MORE token consumption OVERFLOW ❌
 Total: 8,000 tokens ($0.16 cost)
 ```
 
