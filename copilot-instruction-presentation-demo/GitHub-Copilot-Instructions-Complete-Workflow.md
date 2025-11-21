@@ -14,191 +14,92 @@ This document provides a visual representation of the complete two-step workflow
 
 ## 🔄 Complete Workflow Diagram
 
-```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                          PREREQUISITES                                   │
-├─────────────────────────────────────────────────────────────────────────┤
-│ ✅ GitHub Copilot license active                                        │
-│ ✅ VS Code with GitHub Copilot extension installed                      │
-│ ✅ Repository contains actual code (not empty)                          │
-│ ✅ Copilot set to "Agent" mode (not "Ask" or "Edit")                   │
-└─────────────────────────────────────────────────────────────────────────┘
-                                    ↓
-┌─────────────────────────────────────────────────────────────────────────┐
-│                    STEP 1: GENERATE MONOLITHIC FILE                      │
-│                        (2-3 minutes automated)                           │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                           │
-│  📄 Run: copilot-instruction-main-file-generator.md                      │
-│                                                                           │
-│  Actions Performed:                                                      │
-│  ├── 1. Analyzes entire codebase                                        │
-│  ├── 2. Detects technology stack (languages, frameworks, versions)      │
-│  ├── 3. Identifies patterns (architecture, testing, security)           │
-│  ├── 4. Cites evidence (actual files with line numbers)                 │
-│  └── 5. Generates comprehensive instruction file                        │
-│                                                                           │
-│  Output:                                                                 │
-│  └── .github/copilot-instructions.md (~200-500 lines)                   │
-│      ├── Project Overview                                               │
-│      ├── Technology Stack (all languages/frameworks)                    │
-│      ├── Architecture Guidelines                                        │
-│      ├── General Coding Standards                                       │
-│      ├── Framework-Specific Patterns (ALL technologies)                 │
-│      ├── Security & Best Practices                                      │
-│      ├── Testing Conventions                                            │
-│      ├── Development Workflow                                           │
-│      └── Evidence References                                            │
-│                                                                           │
-└─────────────────────────────────────────────────────────────────────────┘
-                                    ↓
-┌─────────────────────────────────────────────────────────────────────────┐
-│                    STEP 2: HUMAN REVIEW & APPROVAL                       │
-│                          (15 minutes)                                    │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                           │
-│  Team Actions:                                                           │
-│  ├── ✅ Senior developer reviews generated file for accuracy            │
-│  ├── ✅ Team adds project-specific context (e.g., "never use X library")│
-│  ├── ✅ Remove irrelevant sections (if any)                             │
-│  ├── ✅ Verify evidence citations match actual code                     │
-│  └── ✅ Commit approved .github/copilot-instructions.md to repo         │
-│                                                                           │
-│  Quality Check:                                                          │
-│  └── File should be ~90% accurate from automation, 10% human refinement │
-│                                                                           │
-└─────────────────────────────────────────────────────────────────────────┘
-                                    ↓
-┌─────────────────────────────────────────────────────────────────────────┐
-│              STEP 3: GENERATE SPECIALIZED PLAYBOOKS                      │
-│                        (2-3 minutes automated)                           │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                           │
-│  📄 Run: Create-Path-Specific-Copilot-Instructions-V2.md                │
-│                                                                           │
-│  Input:                                                                  │
-│  └── Approved .github/copilot-instructions.md from Step 2               │
-│                                                                           │
-│  Actions Performed:                                                      │
-│  ├── 1. Analyzes monolithic file for technology boundaries              │
-│  ├── 2. Maps evidence paths to directory patterns                       │
-│  ├── 3. Derives focused playbooks for each technology:                  │
-│  │   ├── Extract patterns relevant to specific tech                     │
-│  │   ├── Remove patterns from other technologies                        │
-│  │   ├── Adapt language to be technology-specific                       │
-│  │   └── Generate applyTo glob patterns                                 │
-│  ├── 4. Validates playbooks against actual codebase                     │
-│  └── 5. Appends file list to monolithic file                            │
-│                                                                           │
-│  Output:                                                                 │
-│  ├── .github/instructions/backend.instructions.md (~50-150 lines)       │
-│  │   ├── applyTo: "src/main/java/**/*.java"                             │
-│  │   └── Contains: Java/Spring Boot patterns only                       │
-│  │                                                                        │
-│  ├── .github/instructions/frontend.instructions.md (~50-150 lines)      │
-│  │   ├── applyTo: ["src/**/*.tsx", "src/**/*.jsx"]                      │
-│  │   └── Contains: React/TypeScript patterns only                       │
-│  │                                                                        │
-│  ├── .github/instructions/tests.instructions.md (~50-150 lines)         │
-│  │   ├── applyTo: ["**/*.test.*", "**/*.spec.*"]                        │
-│  │   └── Contains: Testing patterns only                                │
-│  │                                                                        │
-│  └── Updated .github/copilot-instructions.md                            │
-│      └── (Appends list of specialized files at end)                     │
-│                                                                           │
-└─────────────────────────────────────────────────────────────────────────┘
-                                    ↓
-┌─────────────────────────────────────────────────────────────────────────┐
-│                    STEP 4: COMMIT ALL FILES                              │
-│                          (1 minute)                                      │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                           │
-│  Git Actions:                                                            │
-│  ├── git add .github/copilot-instructions.md                            │
-│  ├── git add .github/instructions/*.instructions.md                     │
-│  ├── git commit -m "Add GitHub Copilot instruction files"               │
-│  └── git push                                                            │
-│                                                                           │
-└─────────────────────────────────────────────────────────────────────────┘
-                                    ↓
-┌─────────────────────────────────────────────────────────────────────────┐
-│                     ✅ COMPLETE: NOW ACTIVE                              │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                           │
-│  How It Works in Practice:                                              │
-│                                                                           │
-│  📂 When developer starts ANY Copilot chat session:                     │
-│  └── Copilot loads .github/copilot-instructions.md (complete context)   │
-│                                                                           │
-│  📂 When developer edits UserController.java:                           │
-│  ├── Copilot loads .github/copilot-instructions.md (as always)          │
-│  └── ALSO loads .github/instructions/backend.instructions.md            │
-│      └── Result: Complete context + focused Java/Spring Boot patterns   │
-│                                                                           │
-│  📂 When developer edits LoginForm.tsx:                                 │
-│  ├── Copilot loads .github/copilot-instructions.md (as always)          │
-│  └── ALSO loads .github/instructions/frontend.instructions.md           │
-│      └── Result: Complete context + focused React patterns              │
-│                                                                           │
-│  📂 When developer edits auth.test.ts:                                  │
-│  ├── Copilot loads .github/copilot-instructions.md (as always)          │
-│  └── ALSO loads .github/instructions/tests.instructions.md              │
-│      └── Result: Complete context + focused testing patterns            │
-│                                                                           │
-└─────────────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TD
+    Start([Start: Set Up GitHub Copilot Instructions]) --> Prerequisites{Prerequisites Met?}
+
+    Prerequisites -->|Yes| Step1[STEP 1: Generate Monolithic File<br/>2-3 minutes automated]
+    Prerequisites -->|No| CheckPrereq[Check Prerequisites:<br/>✅ GitHub Copilot license<br/>✅ VS Code + Copilot extension<br/>✅ Repo has code<br/>✅ Agent mode enabled]
+    CheckPrereq --> Prerequisites
+
+    Step1 --> RunPrompt1[Run: copilot-instruction-main-file-generator.md]
+    RunPrompt1 --> Actions1[AI Actions:<br/>1. Analyze codebase<br/>2. Detect tech stack<br/>3. Identify patterns<br/>4. Cite evidence<br/>5. Generate file]
+    Actions1 --> Output1[Output:<br/>.github/copilot-instructions.md<br/>200-500 lines]
+
+    Output1 --> Step2[STEP 2: Human Review & Approval<br/>15 minutes]
+    Step2 --> Review[Team Reviews:<br/>✅ Check accuracy<br/>✅ Add custom rules<br/>✅ Remove irrelevant sections<br/>✅ Verify evidence]
+    Review --> Approve{Approved?}
+    Approve -->|No| Step1
+    Approve -->|Yes| Commit1[Commit approved monolithic file]
+
+    Commit1 --> Step3[STEP 3: Generate Specialized Playbooks<br/>2-3 minutes automated]
+    Step3 --> RunPrompt2[Run: Create-Path-Specific-Copilot-Instructions-V2.md]
+    RunPrompt2 --> Actions2[AI Actions:<br/>1. Analyze monolithic file<br/>2. Map technology boundaries<br/>3. Derive focused playbooks<br/>4. Validate against codebase<br/>5. Append references]
+    Actions2 --> Output2[Output:<br/>backend.instructions.md<br/>frontend.instructions.md<br/>tests.instructions.md<br/>+ Updated monolithic file]
+
+    Output2 --> Step4[STEP 4: Commit All Files<br/>1 minute]
+    Step4 --> GitCommit[git add .github/<br/>git commit<br/>git push]
+
+    GitCommit --> Complete([✅ COMPLETE: System Active])
+
+    Complete --> Usage[How Developers Use It]
+    Usage --> Session[Start Copilot Session]
+    Session --> LoadMonolithic[Loads: .github/copilot-instructions.md]
+    LoadMonolithic --> EditFile{Editing File?}
+
+    EditFile -->|Java File| LoadBackend[ALSO Loads:<br/>backend.instructions.md<br/>Result: Complete + Java patterns]
+    EditFile -->|React File| LoadFrontend[ALSO Loads:<br/>frontend.instructions.md<br/>Result: Complete + React patterns]
+    EditFile -->|Test File| LoadTests[ALSO Loads:<br/>tests.instructions.md<br/>Result: Complete + Test patterns]
+
+    LoadBackend --> DevWork[Developer Works]
+    LoadFrontend --> DevWork
+    LoadTests --> DevWork
+
+    DevWork --> Quarterly{Quarterly<br/>Update?}
+    Quarterly -->|Yes| Maintenance[Re-run both prompts<br/>5 minutes total]
+    Maintenance --> Step1
+    Quarterly -->|No| DevWork
+
+
 ```
 
 ---
 
 ## 🔄 Maintenance Workflow (Quarterly - Every 3 Months)
 
-```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                    QUARTERLY UPDATE PROCESS                              │
-│                          (5 minutes total)                               │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                           │
-│  Trigger: Significant codebase changes                                  │
-│  ├── New framework/library added                                        │
-│  ├── Major refactoring completed                                        │
-│  ├── Architectural patterns changed                                     │
-│  └── New testing strategies adopted                                     │
-│                                                                           │
-│  Actions:                                                                │
-│  ├── 1. Re-run copilot-instruction-main-file-generator.md               │
-│  │   └── Generates updated monolithic file (2 min)                      │
-│  ├── 2. Team reviews for accuracy                                       │
-│  │   └── Merge with any custom team additions (2 min)                   │
-│  ├── 3. Re-run Create-Path-Specific-Copilot-Instructions-V2.md          │
-│  │   └── Regenerates specialized playbooks (1 min)                      │
-│  └── 4. Commit updated files                                            │
-│                                                                           │
-└─────────────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart LR
+    Trigger{Significant<br/>Codebase<br/>Changes?} -->|New framework| Update[Quarterly Update Needed]
+    Trigger -->|Major refactor| Update
+    Trigger -->|Pattern changes| Update
+    Trigger -->|New testing| Update
+
+    Update --> Rerun1[Re-run Primary Prompt<br/>copilot-instruction-main-file-generator.md<br/>2 minutes]
+    Rerun1 --> Review[Team Review<br/>Merge custom additions<br/>2 minutes]
+    Review --> Rerun2[Re-run Follow-Up Prompt<br/>Create-Path-Specific-Copilot-Instructions-V2.md<br/>1 minute]
+    Rerun2 --> CommitAll[Commit All Updated Files<br/>Total: 5 minutes]
+    CommitAll --> Done([✅ Instructions Updated])
+
 ```
 
 ---
 
 ## 📊 File Structure Summary
 
-```
-your-repository/
-├── .github/
-│   ├── copilot-instructions.md          ← MONOLITHIC (Complete context)
-│   │                                        Loaded: EVERY Copilot session
-│   │                                        Contains: All technologies, all patterns
-│   │
-│   └── instructions/
-│       ├── backend.instructions.md       ← SPECIALIZED (Focused guidance)
-│       │                                    Loaded: When editing *.java files
-│       │                                    Contains: Java/Spring Boot only
-│       │
-│       ├── frontend.instructions.md      ← SPECIALIZED (Focused guidance)
-│       │                                    Loaded: When editing *.tsx/*.jsx files
-│       │                                    Contains: React/TypeScript only
-│       │
-│       └── tests.instructions.md         ← SPECIALIZED (Focused guidance)
-│                                            Loaded: When editing *.test.* files
-│                                            Contains: Testing patterns only
+```mermaid
+graph TD
+    Repo[your-repository/] --> GitHub[.github/]
+
+    GitHub --> Monolithic[copilot-instructions.md<br/>📄 MONOLITHIC FILE<br/>━━━━━━━━━━━━━━━<br/>Loaded: EVERY session<br/>Contains: All technologies]
+
+    GitHub --> Instructions[instructions/]
+
+    Instructions --> Backend[backend.instructions.md<br/>📄 SPECIALIZED<br/>━━━━━━━━━━━━━━━<br/>Loaded: *.java files<br/>Contains: Java/Spring Boot]
+
+    Instructions --> Frontend[frontend.instructions.md<br/>📄 SPECIALIZED<br/>━━━━━━━━━━━━━━━<br/>Loaded: *.tsx/*.jsx<br/>Contains: React/TypeScript]
+
+    Instructions --> Tests[tests.instructions.md<br/>📄 SPECIALIZED<br/>━━━━━━━━━━━━━━━<br/>Loaded: *.test.* files<br/>Contains: Testing patterns]
+
 ```
 
 ---
@@ -230,27 +131,67 @@ your-repository/
 
 ## 🎯 Key Benefits Recap
 
+```mermaid
+flowchart TB
+    subgraph Before["❌ BEFORE: Generic Copilot"]
+        B1[Generic code suggestions]
+        B2[Inconsistent patterns across team]
+        B3[Long code review cycles<br/>fixing style/patterns]
+        B4[Slow onboarding<br/>learning wrong patterns]
+        B5[Knowledge silos<br/>tribal rules not documented]
+    end
+
+    Before --> Transform[Implement Two-Step<br/>Instruction System]
+
+    Transform --> After
+
+    subgraph After["✅ AFTER: Two-Step Instruction System"]
+        A1[Project-specific code<br/>matching YOUR patterns]
+        A2[Consistent code<br/>across all team members]
+        A3[20-30% reduction<br/>in code review time]
+        A4[50% faster onboarding<br/>for new developers]
+        A5[Knowledge democratization<br/>AI teaches best practices]
+        A6[No noise<br/>focused guidance per file type]
+    end
 ```
-┌──────────────────────────────────────────────────────────────────┐
-│                    BEFORE (Generic Copilot)                      │
-├──────────────────────────────────────────────────────────────────┤
-│ ❌ Generic code suggestions                                      │
-│ ❌ Inconsistent patterns across team                             │
-│ ❌ Long code review cycles (fixing style/patterns)               │
-│ ❌ Slow onboarding (learning wrong patterns)                     │
-│ ❌ Knowledge silos (tribal rules not documented)                 │
-└──────────────────────────────────────────────────────────────────┘
-                                ↓
-┌──────────────────────────────────────────────────────────────────┐
-│              AFTER (Two-Step Instruction System)                 │
-├──────────────────────────────────────────────────────────────────┤
-│ ✅ Project-specific code matching YOUR patterns                  │
-│ ✅ Consistent code across all team members                       │
-│ ✅ 20-30% reduction in code review time                          │
-│ ✅ 50% faster onboarding for new developers                      │
-│ ✅ Knowledge democratization (AI teaches best practices)         │
-│ ✅ No noise (focused guidance per file type)                     │
-└──────────────────────────────────────────────────────────────────┘
+
+---
+
+## 📖 How Instructions Load When Editing Files
+
+```mermaid
+sequenceDiagram
+    participant Dev as Developer
+    participant Copilot as GitHub Copilot
+    participant Mono as .github/copilot-instructions.md
+    participant Backend as instructions/backend.instructions.md
+    participant Frontend as instructions/frontend.instructions.md
+    participant Tests as instructions/tests.instructions.md
+
+    Note over Dev,Copilot: Session Start
+    Dev->>Copilot: Start Copilot session
+    Copilot->>Mono: Load monolithic file
+    Mono-->>Copilot: Complete project context<br/>(all technologies)
+
+    Note over Dev,Copilot: Editing Java File
+    Dev->>Copilot: Open UserController.java
+    Copilot->>Backend: File matches src/main/java/**/*.java
+    Backend-->>Copilot: Java/Spring Boot patterns only
+    Note over Copilot: Complete context +<br/>Focused Java patterns
+
+    Note over Dev,Copilot: Switching to React File
+    Dev->>Copilot: Open LoginForm.tsx
+    Copilot->>Frontend: File matches src/**/*.tsx
+    Frontend-->>Copilot: React/TypeScript patterns only
+    Note over Copilot: Complete context +<br/>Focused React patterns
+
+    Note over Dev,Copilot: Switching to Test File
+    Dev->>Copilot: Open auth.test.ts
+    Copilot->>Tests: File matches **/*.test.*
+    Tests-->>Copilot: Testing patterns only
+    Note over Copilot: Complete context +<br/>Focused testing patterns
+
+    Note over Dev,Copilot: Result: No noise, relevant guidance only!
 ```
 
 ---
