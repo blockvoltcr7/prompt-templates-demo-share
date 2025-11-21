@@ -64,27 +64,19 @@ Create `.github/copilot-instructions.md` with the following sections:
 
 [2-4 line description of what this system does, based on README.md and inputs above]
 
-**Evidence:** `README.md`, root-level docs
-
 ---
 
 ## Technology Stack
 
-| Category | Technology | Version | Purpose | Evidence |
-|----------|------------|---------|---------|----------|
-| Language | [e.g., TypeScript] | [5.3.x] | Primary language | (package.json:12-15) |
-| Runtime | [e.g., Node.js] | [20.x] | Execution environment | (package.json:45) |
-| Framework | [e.g., React] | [18.x] | UI framework | (package.json:23) |
-| Build Tool | [e.g., Vite] | [5.x] | Build system | (package.json:34) |
-| [Database] | [e.g., PostgreSQL] | [16.x] | Data persistence | (docker-compose.yml:12) |
-| [ORM] | [e.g., Prisma] | [5.x] | Database ORM | (package.json:28) |
-| [Add more rows as discovered] | ... | ... | ... | ... |
-
-**Evidence Files Analyzed:**
-- `package.json` - Dependencies and scripts
-- `tsconfig.json` - TypeScript configuration
-- `docker-compose.yml` - Container orchestration
-- [Add other config files you analyzed]
+| Category | Technology | Version | Purpose |
+|----------|------------|---------|---------|
+| Language | [e.g., TypeScript] | [5.3.x] | Primary language |
+| Runtime | [e.g., Node.js] | [20.x] | Execution environment |
+| Framework | [e.g., React] | [18.x] | UI framework |
+| Build Tool | [e.g., Vite] | [5.x] | Build system |
+| Database | [e.g., PostgreSQL] | [16.x] | Data persistence |
+| ORM | [e.g., Prisma] | [5.x] | Database ORM |
+| [Add more rows as discovered] | ... | ... | ... |
 
 ---
 
@@ -112,8 +104,6 @@ scripts/
 - Config files: [application.yml, config/, etc.]
 - Secrets: [how secrets are managed - env vars, vault, etc.]
 
-**Evidence:** `src/` directory structure, config files
-
 ---
 
 <!-- End of Phase 1 output -->
@@ -124,12 +114,13 @@ scripts/
 
 **What to output:**
 - ONLY the markdown sections above (Project Overview, Technology Stack, Repository Structure)
-- Include the evidence sections
+- Focus on being prescriptive: "Always use X" not "The codebase uses X"
 
 **What NOT to output:**
 - ❌ This validation checklist
 - ❌ These output instructions
 - ❌ Any meta-commentary about the analysis
+- ❌ Evidence citations or file references
 - ❌ "SAVE OUTPUT AS" or "NEXT STEP" instructions
 
 **Validation checklist (for your reference, DO NOT include in output):**

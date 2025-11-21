@@ -15,8 +15,7 @@ If not, run all previous phases first.
 ## Hard Rules
 
 1. **No Invention** - Only include security/framework patterns **verified to exist**
-2. **Cite Evidence** - Format: `(path/to/file.ext:45-67)`
-3. **Security First** - Document actual security patterns found
+2. **Security First** - Document actual security patterns found
 
 ---
 
@@ -64,11 +63,6 @@ Use **#search** and **#codebase** to find:
 - CORS configuration
 - Rate limiting
 - Security headers (helmet, CSP)
-
-**Evidence:**
-- Auth middleware files
-- Validation schemas
-- Security configuration files
 
 ---
 
@@ -132,8 +126,6 @@ Use **#search** and **#codebase** to find:
 [Show 15-20 line example from actual codebase]
 ```
 
-**Evidence:** [3-5 representative files]
-
 ---
 
 ## Security & Best Practices
@@ -151,8 +143,6 @@ Use **#search** and **#codebase** to find:
 - [Pattern: RBAC, permissions, policies]
 - [How permissions are checked]
 
-**Evidence:** [auth middleware, guards, config files]
-
 ### Secret Management
 
 **Approach:**
@@ -161,8 +151,6 @@ Use **#search** and **#codebase** to find:
 
 **Required Environment Variables:**
 - [List from .env.example if it exists]
-
-**Evidence:** `.env.example`, config files
 
 ### Input Validation
 
@@ -178,8 +166,6 @@ Use **#search** and **#codebase** to find:
 [Show validation schema example from codebase]
 ```
 
-**Evidence:** [validation files, schemas]
-
 ### API Security
 
 **CORS:**
@@ -194,32 +180,18 @@ Use **#search** and **#codebase** to find:
 **Other Security Measures:**
 - [CSRF protection, input sanitization, etc.]
 
-**Evidence:** [security middleware, config files]
-
 ---
 
-## Evidence References
+## Key Files
 
-**Configuration Files Analyzed:**
-- `[file 1]` - [purpose]
-- `[file 2]` - [purpose]
-- `[file 3]` - [purpose]
-- [List 5-10 key config files]
+**Configuration:**
+- [List 3-5 key config files]
 
-**Source Code Samples:**
-- `[file 1]` - [what pattern it demonstrates]
-- `[file 2]` - [what pattern it demonstrates]
-- [List 5-10 representative source files]
+**Source Code:**
+- [List 3-5 representative source files]
 
-**Test Examples:**
-- `[file 1]` - [test type/purpose]
-- `[file 2]` - [test type/purpose]
-- [List 3-5 test files]
-
-**Infrastructure/Deployment:**
-- `[file 1]` - [purpose]
-- `[file 2]` - [purpose]
-- [List Docker, CI/CD, K8s files]
+**Infrastructure:**
+- [List 2-3 deployment files if present]
 
 ---
 
@@ -239,13 +211,15 @@ Use **#search** and **#codebase** to find:
 ## ⚠️ IMPORTANT OUTPUT INSTRUCTIONS
 
 **What to output:**
-- ONLY the markdown sections above (Security & Best Practices, Framework-Specific Patterns, Files Analyzed)
-- Include the evidence sections
+- ONLY the markdown sections above (Framework-Specific Patterns, Security & Best Practices, Key Files)
+- Focus on prescriptive instructions with code examples
+- Use "Always do X" not "The codebase does X"
 
 **What NOT to output:**
 - ❌ This validation checklist
 - ❌ These output instructions
 - ❌ Any meta-commentary about the analysis
+- ❌ Evidence citations or file references with line numbers
 - ❌ "SAVE OUTPUT", "FINAL OUTPUT", or completion messages
 - ❌ "Post-Completion" instructions
 - ❌ "Tell the user" messages
@@ -253,7 +227,7 @@ Use **#search** and **#codebase** to find:
 **Validation checklist (for your reference, DO NOT include in output):**
 - [ ] Framework-specific section matches the actual framework used
 - [ ] Security patterns are based on real implementations (not generic advice)
-- [ ] All code examples are from actual files (cited)
+- [ ] All code examples are from actual files in the codebase
 - [ ] All sections flow logically
 - [ ] No duplicated content
 - [ ] No placeholder text remains

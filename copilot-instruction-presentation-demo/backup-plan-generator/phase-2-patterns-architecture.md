@@ -101,9 +101,6 @@ Generate ONLY the following sections and output them directly:
 - [Which layers/modules depend on which]
 - [Example: Controllers → Services → Repositories]
 
-**Evidence:**
-- [3-5 key files demonstrating architecture]
-
 **NOTE:** Do NOT generate directory structure tree here - Phase 1 already created the Repository Structure section.
 
 ---
@@ -122,8 +119,6 @@ Generate ONLY the following sections and output them directly:
 
 **Constants:** [pattern with example: `API_BASE_URL`, `MAX_RETRY_COUNT`]
 
-**Evidence:** [2-3 example files showing these patterns]
-
 ### Error Handling
 
 - [Describe error handling strategy: try-catch, error boundaries, global handlers]
@@ -135,15 +130,11 @@ Generate ONLY the following sections and output them directly:
 [Show 5-10 line code example from actual codebase]
 ```
 
-**Evidence:** [1-2 files showing error handling]
-
 ### Configuration Patterns
 
 - [How config values are accessed: process.env, config service, dependency injection]
 - [Type safety for config: interfaces, schemas, validation]
 - [Environment-specific config: .env files, config files per env]
-
-**Evidence:** [config files, env examples]
 
 ### NEVER Do
 
@@ -156,8 +147,6 @@ Generate ONLY the following sections and output them directly:
 **❌ [Other anti-patterns found]**
 - [Document any other anti-patterns discovered]
 
-**Evidence:** [Files demonstrating these rules]
-
 ---
 
 <!-- End of Phase 2 output -->
@@ -168,12 +157,14 @@ Generate ONLY the following sections and output them directly:
 
 **What to output:**
 - ONLY the markdown sections above (Architecture Guidelines, Coding Standards)
-- Include the evidence sections
+- Focus on prescriptive instructions with code examples
+- Use "Always do X" not "The codebase does X"
 
 **What NOT to output:**
 - ❌ This validation checklist
 - ❌ These output instructions
 - ❌ Any meta-commentary about the analysis
+- ❌ Evidence citations or file references
 - ❌ "SAVE OUTPUT", "NEXT STEP", or completion messages
 - ❌ Directory structure trees (Phase 1 already created that)
 

@@ -93,8 +93,6 @@ Use **#findTestFiles** and **#codebase** to find:
 - Location: [e.g., `tests/e2e/`, `e2e/`]
 - Naming: [e.g., `login.spec.ts`]
 
-**Evidence:** [test config files, example test files]
-
 ### Test Patterns
 
 **Assertion Style:**
@@ -118,8 +116,6 @@ Use **#findTestFiles** and **#codebase** to find:
 [Show 10-15 line example from actual test file]
 ```
 
-**Evidence:** [2-3 representative test files]
-
 ---
 
 ## Development Workflow
@@ -139,9 +135,6 @@ Use **#findTestFiles** and **#codebase** to find:
 **Pre-commit Hooks:**
 - Tool: [e.g., Husky + lint-staged, pre-commit]
 - Checks: [what runs on pre-commit: lint, format, type-check]
-
-**Evidence:**
-- [.eslintrc, .prettierrc, .husky/, .pre-commit-config.yaml]
 
 ### CI/CD Pipeline
 
@@ -163,8 +156,6 @@ Use **#findTestFiles** and **#codebase** to find:
 - Targets: [e.g., Vercel, AWS, Docker registry]
 - Trigger: [e.g., push to main, manual, tag]
 
-**Evidence:** [CI/CD files]
-
 ### Container Workflow
 
 **Docker Build:**
@@ -174,8 +165,6 @@ Use **#findTestFiles** and **#codebase** to find:
 
 **Container Orchestration:**
 - [docker-compose services, K8s deployments, Helm charts]
-
-**Evidence:** [Dockerfile, docker-compose.yml, K8s configs]
 
 ---
 
@@ -187,12 +176,14 @@ Use **#findTestFiles** and **#codebase** to find:
 
 **What to output:**
 - ONLY the markdown sections above (Testing Conventions, Development Workflow)
-- Include the evidence sections
+- Focus on prescriptive instructions with code examples
+- Use "Always do X" not "The codebase does X"
 
 **What NOT to output:**
 - ❌ This validation checklist
 - ❌ These output instructions
 - ❌ Any meta-commentary about the analysis
+- ❌ Evidence citations or file references
 - ❌ "SAVE OUTPUT", "NEXT STEP", or completion messages
 
 **Validation checklist (for your reference, DO NOT include in output):**
