@@ -15,8 +15,7 @@ If it doesn't exist, run `phase-1-tech-stack-discovery.md` first.
 ## Hard Rules
 
 1. **No Invention** - Only include patterns you **verified exist** in source code
-2. **Cite Evidence** - Format: `(path/to/file.ext:45-67)`
-3. **Respect Exclusions** - Ignore: `node_modules/`, `build/`, `dist/`, `.git/`
+2. **Respect Exclusions** - Ignore: `node_modules/`, `build/`, `dist/`, `.git/`
 
 ---
 
@@ -172,5 +171,4 @@ Generate ONLY the following sections and output them directly:
 - [ ] Architecture section describes ACTUAL layers found in code
 - [ ] Naming conventions include real examples from the repo
 - [ ] Error handling pattern includes code example from actual file
-- [ ] All patterns cite evidence files
 - [ ] NEVER section lists real issues to avoid (not generic advice)

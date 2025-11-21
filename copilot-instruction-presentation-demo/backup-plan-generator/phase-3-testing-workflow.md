@@ -15,8 +15,7 @@ If not, run phases 1 and 2 first.
 ## Hard Rules
 
 1. **No Invention** - Only include test frameworks/tools that **actually exist** in the repo
-2. **Cite Evidence** - Format: `(path/to/file.ext:45-67)`
-3. **Respect Exclusions** - Ignore test artifacts, coverage reports, build outputs
+2. **Respect Exclusions** - Ignore test artifacts, coverage reports, build outputs
 
 ---
 
