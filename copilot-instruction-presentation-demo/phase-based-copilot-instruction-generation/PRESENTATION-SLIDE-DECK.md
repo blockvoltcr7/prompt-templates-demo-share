@@ -212,7 +212,7 @@ Total: 4,000 tokens ($0.08 cost)
 | **1** | **Tech Stack Discovery** | 7 min | Technology Stack, Repository Structure, Config |
 | **2** | **Patterns & Architecture** | 7 min | Architecture Guidelines, Coding Standards, Error Handling |
 | **3** | **Testing & Workflow** | 7 min | Testing Conventions, CI/CD Pipeline, Code Quality |
-| **4** | **Security & Finalization** | 7 min | Security Best Practices, Framework Patterns, Key Files |
+| **4** | **Security & Finalization** | 7 min | Security Best Practices, Framework Patterns |
 | **Review** | **Human Validation** | 10 min | Final polished file |
 | **TOTAL** | **Complete Instructions** | **35-45 min** | **200-500 lines generated** |
 
@@ -228,54 +228,6 @@ Total: 4,000 tokens ($0.08 cost)
 - Total execution: 35-45 minutes vs 6-8 hours manual
 - Output is comprehensive: 200-500 lines covering all aspects
 - Quality consistently high across different technologies
-
----
-
-# SLIDE 9: Example Output Quality
-
-## What You Get
-### Evidence-Based, Prescriptive Instructions
-
-**❌ Generic Template (What We DON'T Want):**
-```markdown
-## Coding Standards
-- Use consistent naming conventions
-- Follow framework best practices
-- Write tests for new features
-```
-
-**✅ Phase-Based Output (What We GET):**
-```markdown
-## Coding Standards
-
-**Files:** kebab-case.ts
-- Example: user-service.ts, auth-helper.ts
-
-**Components:** PascalCase
-- Example: UserProfile, LoginForm
-
-**Functions:** camelCase
-- Example: getUserById, handleFormSubmit
-
-**Error Handling:**
-Always use try-catch with custom error classes:
-
-try {
-  const user = await getUserById(id);
-} catch (error) {
-  logger.error('Failed to fetch user', { userId: id, error });
-  throw new UserNotFoundError(id);
-}
-```
-
----
-
-**SPEAKER NOTES:**
-- Left side: Generic advice that doesn't help AI
-- Right side: Prescriptive instructions with real examples
-- Evidence-based: Patterns derived from actual codebase analysis
-- Actionable: Copilot knows exactly what to do
-- This is what makes the system valuable
 
 ---
 
@@ -305,7 +257,6 @@ try {
 - Not just faster—fundamentally changes the economics
 - Makes custom instructions feasible for ALL repositories
 - ROI is immediate and measurable
-- Break-even after just 2-3 repos means low risk
 
 ---
 
@@ -378,7 +329,6 @@ try {
 
 | Risk | Likelihood | Impact | Mitigation | Severity |
 |------|-----------|--------|-----------|----------|
-| User doesn't fill inputs | 30% | Low | Clear docs, examples | 🟡 LOW |
 | Codebase too large | 15% | Medium | AI samples representatively | 🟡 LOW |
 | Unusual tech stack | 10% | Medium | Manual editing faster than manual creation | 🟡 LOW |
 | Output needs heavy editing | 15% | Low | Still 5x faster than manual | 🟢 MINIMAL |
@@ -410,7 +360,7 @@ try {
 **Test Repositories:**
 1. ✅ React + TypeScript + Next.js (E-commerce frontend)
 2. ✅ Java + Spring Boot + PostgreSQL (Microservice API)
-3. ✅ Python + Django + Celery (Background processor)
+3. ✅ Python (Background processor)
 4. ✅ Go microservice (Payment gateway)
 5. ✅ React Native mobile app (Customer portal)
 

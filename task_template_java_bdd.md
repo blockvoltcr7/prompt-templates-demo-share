@@ -1415,10 +1415,3 @@ Before presenting the task document to the user, the AI agent must:
 **🚨 USER ATTENTION REQUIRED:**
 The new tests introduce a data builder pattern not currently used in the project. This is a better approach but will require team discussion to ensure consistency across all tests.
 ```
-
----
-
-*Template Version: 2.0 - Java BDD API Testing*
-*Last Updated: 2025-01-15*
-*Adapted From: Next.js Task Template v1.3*
-*Created By: Brandon Hancock / Claude Code*
