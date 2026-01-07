@@ -33,6 +33,13 @@ This is a **documentation repository** containing AI-assisted software developme
 - Task-specific prompts in `tasks/` for common activities: Test Plans, Bug Reports, Code Review, Jira tickets, Meta-prompts
 - Corresponding templates in `templates/` for standardized outputs
 
+**Phase-Based Copilot Instruction Generator** (`/copilot-instruction-presentation-demo/phase-based-copilot-instruction-generation/`)
+- 4-phase automated system for generating custom `.github/copilot-instructions.md` files
+- Prompts in `prompts/` directory: Phase 1 (Tech Stack) → Phase 2 (Architecture) → Phase 3 (Testing) → Phase 4 (Finalization)
+- Key innovation: Session isolation between phases to prevent context overflow
+- Supporting documentation in `docs/` and Confluence-ready exports in `confluence/`
+- Automation scripts in `scripts/` for parallel execution
+
 ### Root-Level Template Categories
 
 1. **Test Automation Templates**
@@ -115,8 +122,18 @@ When modifying `.specify/memory/constitution.md`:
 - **Agentic prompts**: `/spec-kit-copilot/version-9-29-25/.github/prompts/`
 - **Task templates**: `/agent/.agent-core/{tasks,templates}/`
 - **Chaining examples**: Root-level files with "CHAIN" or "COMPOSITION" in filename
+- **Copilot instruction generator**: `/copilot-instruction-presentation-demo/phase-based-copilot-instruction-generation/`
 - **Presentation materials**: `/copilot-instruction-presentation-demo/`
 - **Reference docs**: `/notes/` and `/share/`
+
+## Multi-AI Configuration
+
+This repository contains AI instruction files for multiple AI coding assistants:
+- `CLAUDE.md` - Instructions for Claude Code (this file)
+- `GEMINI.md` - Instructions for Google Gemini
+- `.github/copilot-instructions.md` - Instructions for GitHub Copilot
+
+The `.github/copilot-instructions.md` file contains comprehensive naming conventions, anti-patterns, and framework-specific patterns. Refer to it for detailed template structure guidance.
 
 ## Important Conventions
 
@@ -141,3 +158,10 @@ When creating or modifying role-specific content:
 - Follow CREATE framework structure across all role guides
 - Ensure examples demonstrate realistic scenarios from that role's perspective
 - Maintain consistent terminology across developer, QA, and PM guides
+
+### Naming Conventions
+- **Root templates**: `SCREAMING-KEBAB-CASE.md` (e.g., `TEMPLATE-COMPOSITION-CHAINING-EXAMPLE.md`)
+- **Guide files**: `Title_Case_With_Underscores.md` (e.g., `CREATE_Framework_Guide_for_Developers.md`)
+- **YAML templates**: `kebab-case.yaml` (e.g., `feature-implementation-template.yaml`)
+- **Prompt files**: `lowercase.prompt.md` (e.g., `clarify.prompt.md`)
+- **Phase files**: `phase-N-description.md` (e.g., `phase-1-tech-stack-discovery.md`)
