@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Portfolio Processing - Baseline Test (No Groovy - Java 24 Compatible)" enabled="true">
+      <stringProp name="TestPlan.comments">Portfolio Processing Performance Test - Baseline Scenario (50.35 TPS)
+Generated from: portfolio-processing-performance-test-plan.md
+Test Duration: ~30 minutes (2min ramp-up, ~28min steady-state)
+Total Virtual Users: 44 threads across 6 payload sizes
+
+NOTE: This version uses NO GROOVY SCRIPTS - Java 24+ compatible
+- Uses JMeter built-in __FileToString() function to load JSON
+- No JSR223 PreProcessor (avoids Groovy compilation errors)
+- Compatible with any Java version
+- Standard JMeter Thread Groups (no plugins required)</stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="TESTDATA_DIR" elementType="Argument">
+            <stringProp name="Argument.name">TESTDATA_DIR</stringProp>
+            <stringProp name="Argument.value">${__P(testdata_dir,/Users/samisabir-idrissi/dev/personal/prompt-templates-demo-share/jmeter-prompt-workflow-templates/testdata)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">Path to test data directory containing JSON files</stringProp>
+          </elementProp>
+          <elementProp name="TARGET_HOST" elementType="Argument">
+            <stringProp name="Argument.name">TARGET_HOST</stringProp>
+            <stringProp name="Argument.value">${__P(target_host,process-portfolio-4bzwg5efpa-uc.a.run.app)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">Target API hostname or IP address</stringProp>
+          </elementProp>
+          <elementProp name="TARGET_PORT" elementType="Argument">
+            <stringProp name="Argument.name">TARGET_PORT</stringProp>
+            <stringProp name="Argument.value">${__P(target_port,443)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">Target API port number</stringProp>
+          </elementProp>
+          <elementProp name="TARGET_PROTOCOL" elementType="Argument">
+            <stringProp name="Argument.name">TARGET_PROTOCOL</stringProp>
+            <stringProp name="Argument.value">${__P(target_protocol,https)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">Protocol: http or https</stringProp>
+          </elementProp>
+          <elementProp name="TARGET_PATH" elementType="Argument">
+            <stringProp name="Argument.name">TARGET_PATH</stringProp>
+            <stringProp name="Argument.value">/</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">API endpoint path</stringProp>
+          </elementProp>
+        </collectionProp>
+      </elementProp>
+    </TestPlan>
+    <hashTree>
+      <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP-Headers-JSON">
+        <collectionProp name="HeaderManager.headers">
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">Content-Type</stringProp>
+            <stringProp name="Header.value">application/json</stringProp>
+          </elementProp>
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">Accept</stringProp>
+            <stringProp name="Header.value">application/json</stringProp>
+          </elementProp>
+        </collectionProp>
+        <stringProp name="TestPlan.comments">HTTP headers for JSON API requests</stringProp>
+      </HeaderManager>
+      <hashTree/>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="TG-Small-3-Baseline" enabled="true">
+        <stringProp name="TestPlan.comments">Small Portfolio (3 holdings) - 35% of baseline load
+Threads: 11 | TPS Target: 17.62 | SLA: 300ms | Expected Samples: ~31,716
+JSON loaded via __FileToString() function (no Groovy)</stringProp>
+        <intProp name="ThreadGroup.num_threads">11</intProp>
+        <intProp name="ThreadGroup.ramp_time">120</intProp>
+        <longProp name="ThreadGroup.duration">1800</longProp>
+        <longProp name="ThreadGroup.delay">0</longProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <intProp name="LoopController.loops">-1</intProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Timer-ThinkTime-0.5s" enabled="true">
+          <stringProp name="ConstantTimer.delay">500</stringProp>
+          <stringProp name="TestPlan.comments">0.5 second think time between requests</stringProp>
+        </ConstantTimer>
+        <hashTree/>
+        <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="CTT-Small-3" enabled="true">
+          <intProp name="calcMode">0</intProp>
+          <doubleProp>
+            <name>throughput</name>
+            <value>1057.2</value>
+            <savedValue>0.0</savedValue>
+          </doubleProp>
+          <stringProp name="TestPlan.comments">Target: 17.62 TPS = 1057.2 requests/minute (per thread group)</stringProp>
+        </ConstantThroughputTimer>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST-PortfolioProcessing" enabled="true">
+          <stringProp name="TestPlan.comments">POST request - JSON loaded from file using __FileToString() function</stringProp>
+          <stringProp name="HTTPSampler.domain">${TARGET_HOST}</stringProp>
+          <stringProp name="HTTPSampler.port">${TARGET_PORT}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${TARGET_PROTOCOL}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+          <stringProp name="HTTPSampler.path">${TARGET_PATH}</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${__FileToString(${TESTDATA_DIR}/holdings_3_411929.json,,)}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert-HTTP200" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="TestPlan.comments">Validates HTTP 200 success response</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Assert-ResponseTime-Small3" enabled="true">
+            <stringProp name="DurationAssertion.duration">300</stringProp>
+            <stringProp name="TestPlan.comments">SLA enforcement: Response time must be ≤ 300ms</stringProp>
+          </DurationAssertion>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="TG-Small-10-Baseline" enabled="true">
+        <stringProp name="TestPlan.comments">Small Portfolio (10 holdings) - 35% of baseline load
+Threads: 12 | TPS Target: 17.62 | SLA: 400ms</stringProp>
+        <intProp name="ThreadGroup.num_threads">12</intProp>
+        <intProp name="ThreadGroup.ramp_time">120</intProp>
+        <longProp name="ThreadGroup.duration">1800</longProp>
+        <longProp name="ThreadGroup.delay">0</longProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <intProp name="LoopController.loops">-1</intProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Timer-ThinkTime-0.5s" enabled="true">
+          <stringProp name="ConstantTimer.delay">500</stringProp>
+        </ConstantTimer>
+        <hashTree/>
+        <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="CTT-Small-10" enabled="true">
+          <intProp name="calcMode">0</intProp>
+          <doubleProp>
+            <name>throughput</name>
+            <value>1057.2</value>
+            <savedValue>0.0</savedValue>
+          </doubleProp>
+          <stringProp name="TestPlan.comments">Target: 17.62 TPS = 1057.2 requests/minute</stringProp>
+        </ConstantThroughputTimer>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST-PortfolioProcessing" enabled="true">
+          <stringProp name="HTTPSampler.domain">${TARGET_HOST}</stringProp>
+          <stringProp name="HTTPSampler.port">${TARGET_PORT}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${TARGET_PROTOCOL}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+          <stringProp name="HTTPSampler.path">${TARGET_PATH}</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${__FileToString(${TESTDATA_DIR}/holdings_10_109757.json,,)}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert-HTTP200" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Assert-ResponseTime-Small10" enabled="true">
+            <stringProp name="DurationAssertion.duration">400</stringProp>
+            <stringProp name="TestPlan.comments">SLA: ≤ 400ms</stringProp>
+          </DurationAssertion>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="TG-Medium-67-Baseline" enabled="true">
+        <stringProp name="TestPlan.comments">Medium Portfolio (67 holdings) - 20% of baseline load
+Threads: 11 | TPS Target: 10.07 | SLA: 800ms</stringProp>
+        <intProp name="ThreadGroup.num_threads">11</intProp>
+        <intProp name="ThreadGroup.ramp_time">120</intProp>
+        <longProp name="ThreadGroup.duration">1800</longProp>
+        <longProp name="ThreadGroup.delay">0</longProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <intProp name="LoopController.loops">-1</intProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Timer-ThinkTime-0.5s" enabled="true">
+          <stringProp name="ConstantTimer.delay">500</stringProp>
+        </ConstantTimer>
+        <hashTree/>
+        <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="CTT-Medium-67" enabled="true">
+          <intProp name="calcMode">0</intProp>
+          <doubleProp>
+            <name>throughput</name>
+            <value>604.2</value>
+            <savedValue>0.0</savedValue>
+          </doubleProp>
+          <stringProp name="TestPlan.comments">Target: 10.07 TPS = 604.2 requests/minute</stringProp>
+        </ConstantThroughputTimer>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST-PortfolioProcessing" enabled="true">
+          <stringProp name="HTTPSampler.domain">${TARGET_HOST}</stringProp>
+          <stringProp name="HTTPSampler.port">${TARGET_PORT}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${TARGET_PROTOCOL}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+          <stringProp name="HTTPSampler.path">${TARGET_PATH}</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${__FileToString(${TESTDATA_DIR}/holdings_67_981936.json,,)}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert-HTTP200" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Assert-ResponseTime-Medium67" enabled="true">
+            <stringProp name="DurationAssertion.duration">800</stringProp>
+            <stringProp name="TestPlan.comments">SLA: ≤ 800ms</stringProp>
+          </DurationAssertion>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="TG-Large-105-Baseline" enabled="true">
+        <stringProp name="TestPlan.comments">Large Portfolio (105 holdings) - 7% of baseline load
+Threads: 5 | TPS Target: 3.52 | SLA: 1200ms</stringProp>
+        <intProp name="ThreadGroup.num_threads">5</intProp>
+        <intProp name="ThreadGroup.ramp_time">120</intProp>
+        <longProp name="ThreadGroup.duration">1800</longProp>
+        <longProp name="ThreadGroup.delay">0</longProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <intProp name="LoopController.loops">-1</intProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Timer-ThinkTime-0.5s" enabled="true">
+          <stringProp name="ConstantTimer.delay">500</stringProp>
+        </ConstantTimer>
+        <hashTree/>
+        <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="CTT-Large-105" enabled="true">
+          <intProp name="calcMode">0</intProp>
+          <doubleProp>
+            <name>throughput</name>
+            <value>211.2</value>
+            <savedValue>0.0</savedValue>
+          </doubleProp>
+          <stringProp name="TestPlan.comments">Target: 3.52 TPS = 211.2 requests/minute</stringProp>
+        </ConstantThroughputTimer>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST-PortfolioProcessing" enabled="true">
+          <stringProp name="HTTPSampler.domain">${TARGET_HOST}</stringProp>
+          <stringProp name="HTTPSampler.port">${TARGET_PORT}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${TARGET_PROTOCOL}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+          <stringProp name="HTTPSampler.path">${TARGET_PATH}</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${__FileToString(${TESTDATA_DIR}/holdings_105_615062.json,,)}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert-HTTP200" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Assert-ResponseTime-Large105" enabled="true">
+            <stringProp name="DurationAssertion.duration">1200</stringProp>
+            <stringProp name="TestPlan.comments">SLA: ≤ 1200ms</stringProp>
+          </DurationAssertion>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="TG-XLarge-245-Baseline" enabled="true">
+        <stringProp name="TestPlan.comments">Extra-Large Portfolio (245 holdings) - 2% of baseline load
+Threads: 3 | TPS Target: 1.01 | SLA: 2500ms</stringProp>
+        <intProp name="ThreadGroup.num_threads">3</intProp>
+        <intProp name="ThreadGroup.ramp_time">120</intProp>
+        <longProp name="ThreadGroup.duration">1800</longProp>
+        <longProp name="ThreadGroup.delay">0</longProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <intProp name="LoopController.loops">-1</intProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Timer-ThinkTime-0.5s" enabled="true">
+          <stringProp name="ConstantTimer.delay">500</stringProp>
+        </ConstantTimer>
+        <hashTree/>
+        <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="CTT-XLarge-245" enabled="true">
+          <intProp name="calcMode">0</intProp>
+          <doubleProp>
+            <name>throughput</name>
+            <value>60.6</value>
+            <savedValue>0.0</savedValue>
+          </doubleProp>
+          <stringProp name="TestPlan.comments">Target: 1.01 TPS = 60.6 requests/minute</stringProp>
+        </ConstantThroughputTimer>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST-PortfolioProcessing" enabled="true">
+          <stringProp name="HTTPSampler.domain">${TARGET_HOST}</stringProp>
+          <stringProp name="HTTPSampler.port">${TARGET_PORT}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${TARGET_PROTOCOL}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+          <stringProp name="HTTPSampler.path">${TARGET_PATH}</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${__FileToString(${TESTDATA_DIR}/holdings_245_358040.json,,)}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert-HTTP200" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Assert-ResponseTime-XLarge245" enabled="true">
+            <stringProp name="DurationAssertion.duration">2500</stringProp>
+            <stringProp name="TestPlan.comments">SLA: ≤ 2500ms</stringProp>
+          </DurationAssertion>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="TG-XXLarge-580-Baseline" enabled="true">
+        <stringProp name="TestPlan.comments">Extra-Extra-Large Portfolio (580 holdings) - 1% of baseline load
+Threads: 2 | TPS Target: 0.50 | SLA: 5000ms</stringProp>
+        <intProp name="ThreadGroup.num_threads">2</intProp>
+        <intProp name="ThreadGroup.ramp_time">120</intProp>
+        <longProp name="ThreadGroup.duration">1800</longProp>
+        <longProp name="ThreadGroup.delay">0</longProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <intProp name="LoopController.loops">-1</intProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Timer-ThinkTime-0.5s" enabled="true">
+          <stringProp name="ConstantTimer.delay">500</stringProp>
+        </ConstantTimer>
+        <hashTree/>
+        <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="CTT-XXLarge-580" enabled="true">
+          <intProp name="calcMode">0</intProp>
+          <doubleProp>
+            <name>throughput</name>
+            <value>30.0</value>
+            <savedValue>0.0</savedValue>
+          </doubleProp>
+          <stringProp name="TestPlan.comments">Target: 0.50 TPS = 30 requests/minute</stringProp>
+        </ConstantThroughputTimer>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST-PortfolioProcessing" enabled="true">
+          <stringProp name="HTTPSampler.domain">${TARGET_HOST}</stringProp>
+          <stringProp name="HTTPSampler.port">${TARGET_PORT}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${TARGET_PROTOCOL}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+          <stringProp name="HTTPSampler.path">${TARGET_PATH}</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${__FileToString(${TESTDATA_DIR}/holdings_580_491573.json,,)}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert-HTTP200" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Assert-ResponseTime-XXLarge580" enabled="true">
+            <stringProp name="DurationAssertion.duration">5000</stringProp>
+            <stringProp name="TestPlan.comments">SLA: ≤ 5000ms</stringProp>
+          </DurationAssertion>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>true</responseData>
+            <samplerData>true</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>true</responseHeaders>
+            <requestHeaders>true</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+        <stringProp name="TestPlan.comments">View live request/response data - ENABLED for GUI testing</stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Listener-Summary" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+        <stringProp name="TestPlan.comments">Aggregate Report - Real-time summary statistics</stringProp>
+      </ResultCollector>
+      <hashTree/>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
