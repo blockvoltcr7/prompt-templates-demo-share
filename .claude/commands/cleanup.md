@@ -28,7 +28,7 @@ AI Agent: Analyze the project to fill this out.
 
 - **Project Type:** [Node.js/TypeScript project - confirmed by presence of `package.json`, `tsconfig.json`, `.tsx` files]
 - **Template Base:** [e.g., chat-saas, rag-saas, adk-agent-saas]
-- **Frameworks & Versions:** [e.g., Next.js 15.3, React 19]
+- **Frameworks & Versions:** [e.g., Next.js 16, React 19]
 - **Language:** [e.g., TypeScript 5.4 with strict mode]
 - **Database & ORM:** [e.g., Supabase (Postgres) via Drizzle ORM]
 - **UI & Styling:** [e.g., shadcn/ui components with Tailwind CSS for styling]

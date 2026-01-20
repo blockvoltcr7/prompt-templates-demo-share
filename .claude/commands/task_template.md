@@ -139,7 +139,7 @@ AI Agent: Analyze the project to fill this out.
 - Check `middleware.ts` for authentication and routing.
 - Check `components/` for existing UI patterns. 
 -->
-- **Frameworks & Versions:** [e.g., Next.js 15.3, React 19]
+- **Frameworks & Versions:** [e.g., Next.js 16, React 19]
 - **Language:** [e.g., TypeScript 5.4 with strict mode]
 - **Database & ORM:** [e.g., Supabase (Postgres) via Drizzle ORM]
 - **UI & Styling:** [e.g., shadcn/ui components with Tailwind CSS for styling]
@@ -1070,6 +1070,11 @@ When a user requests any new feature, improvement, or significant change, your *
   - [ ] Files with server imports (next/headers, supabase/server, db) don't export client-safe utilities
   - [ ] Client components can import utilities without pulling in server dependencies
   - [ ] Mixed server/client files are split using `-client.ts` pattern
+- [ ] **🚨 VERIFY: No re-exports of non-async functions from Server Action files**
+  - [ ] Files with `"use server"` directive ONLY export async functions
+  - [ ] Utility functions and constants are NOT re-exported from `app/actions/` files
+  - [ ] Synchronous utilities live in separate `lib/[feature]-utils.ts` files
+  - [ ] Example violation: `export { utilityFn } from "@/lib/utils"` in a `"use server"` file
 - [ ] **🚨 VERIFY: Proper context usage patterns**
   - [ ] Components use available context providers (UserContext, UsageContext, etc.) instead of unnecessary props
   - [ ] No duplicate data fetching when data is already available in context
@@ -1099,12 +1104,17 @@ When a user requests any new feature, improvement, or significant change, your *
 - Mix database operations with utility functions in same file
 - Import from `@/lib/supabase/server` alongside client-safe functions
 - Create utility files that both server and client components import without considering the import chain
+- **Re-export synchronous functions from `"use server"` files**
+- **Mix async Server Actions with synchronous utility exports in `app/actions/` files**
 
 **✅ ALWAYS DO:**
 - Separate server operations from client utilities into different files
-- Use `-client.ts` suffix for client-safe utility files
-- Re-export client utilities from main file for backward compatibility
+- Use `-client.ts` or `-utils.ts` suffix for client-safe utility files
+- Re-export client utilities from main file for backward compatibility (EXCEPT in `"use server"` files)
 - Test that client components can import utilities without errors
+- **Keep utilities in separate `lib/` files, not in `app/actions/` files**
+- **Only export async functions from `"use server"` files**
+- **Import utilities dynamically in Server Actions if needed, never re-export them**
 
 ---
 
@@ -1229,4 +1239,5 @@ Before presenting the task document to the user, the AI agent must:
 **🚨 USER ATTENTION REQUIRED:**
 The database migration will require approximately 30 minutes of downtime. Please confirm if this is acceptable for your deployment schedule.
 ```
+
 
